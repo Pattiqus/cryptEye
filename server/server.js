@@ -10,8 +10,10 @@ const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
+
 // #INITIALIZE: app variable to the value of express()
 const app = express();
+
 // #INITIALIZE: server variable as a new ApolloServer
 const server = new ApolloServer({
   typeDefs,
