@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import Background from '../assets/images/background.jpg'
 
 const GlobalStyles = createGlobalStyle`
 *{
@@ -20,7 +19,6 @@ const GlobalStyles = createGlobalStyle`
     font-size: 10px;
     font-family: 'Roboto Mono';
     background-color: var(--dark-bg);
-    background-image: url(${Background});
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
