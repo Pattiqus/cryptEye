@@ -19,6 +19,18 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  watchedCoin: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'WatchedCoin',
+    },
+  ],
+  pnl: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Pnl',
+    },
+  ],
   journal: [
     {
       type: Schema.Types.ObjectId,

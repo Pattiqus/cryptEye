@@ -2,14 +2,15 @@ const { Schema, model } = require('mongoose');
 
 const watchedCoinsSchema = new Schema({
     coinId: {
-        type: String
+        type: String,
+        required: true
     },
-    userId: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-})
+});
 
-const watchedCoin = model('watchedCoins', watchedCoinsSchema);
+const WatchedCoin = model('WatchedCoins', watchedCoinsSchema);
 
-module.exports = watchedCoin;
+module.exports = WatchedCoin;
