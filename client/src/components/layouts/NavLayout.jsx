@@ -96,23 +96,15 @@ export default function NavLayout() {
     const navItems = [
         {
             title: 'Home',
-            link: '/pattiqus-portfolio',
+            link: '/',
         },
         {
-            title: 'About',
-            link: '/about',
+            title: 'Signup',
+            link: '/signup',
         },
         {
-            title: 'Portfolio',
-            link: '/portfolio',
-        },
-        {
-            title: 'Contact',
-            link: '/contact',
-        },
-        {
-            title: 'Resume',
-            link: '//drive.google.com/file/d/1xcEo0DQjMCLL6iFEljisaLjj2UBkcy0H/view?usp=sharing',
+            title: 'Dashboard',
+            link: '/dashboard',
         },
     ];
 
