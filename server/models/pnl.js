@@ -13,14 +13,6 @@ const pnlSchema = new Schema({
         type: Float,
         required: true,
     },
-    currentPrice: {
-        type: Float,
-        required: true,
-    },
-    netPosition: {
-        type: Float,
-        required: true
-    }
 })
 
 const Pnl = model('pnl', pnlSchema);

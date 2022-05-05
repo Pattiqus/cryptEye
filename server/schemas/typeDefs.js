@@ -7,7 +7,7 @@ const typeDefs = gql`
         email: String
         password: String
         watchedCoin: [WatchedCoin]!
-        pnl
+        pnl: [Pnl]!
         journal: [Journal]!
     }
 
@@ -38,6 +38,14 @@ const typeDefs = gql`
         user: User
     }
 
+    type Query {
+        users: [User]
+        user(username: String!): User
+        watchedCoins(username: String!): [WatchedCoin]
+        watchedCoin(watchedCoinId: ID!): WatchedCoin
+        pnls(username: String!): [Pnl]
+        pnl(): Pnl
+    }
 
 `;
 
