@@ -10,12 +10,9 @@ function App() {
     <>
       <Router>
           <Routes>
-              <Route path='/' element={<Home/>}>
-              </Route>
-              <Route path='/signup' element={<Signup/>}>
-              </Route>
-              <Route path='/dashboard' element={<Dashboard/>}>
-              </Route>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/signup' element={<Signup/>}/>
+              <Route path='/dashboard' element={<Dashboard/>}/>
           </Routes>
         <FooterLayout/>
       </Router>
