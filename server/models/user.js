@@ -25,18 +25,12 @@ const userSchema = new Schema({
       ref: 'WatchedCoin',
     },
   ],
-  pnl: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Pnl',
-    },
-  ],
-  journal: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Journal',
-    },
-  ],
+  // journal: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Journal',
+  //   },
+  // ],
 });
 
 userSchema.pre('save', async function (next) {

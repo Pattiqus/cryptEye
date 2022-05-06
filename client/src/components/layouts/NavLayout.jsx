@@ -93,19 +93,34 @@ const NavBarStyle = styled.nav`
 `;
 export default function NavLayout() {
   
+    function isLoggedIn(){
+        // 
+        return true;
+    }
+
     const navItems = [
         {
             title: 'Home',
             link: '/',
+            show: isLoggedIn,
         },
         {
             title: 'Signup',
             link: '/signup',
+            show: () => !isLoggedIn(),
         },
         {
             title: 'Dashboard',
             link: '/dashboard',
+            show: isLoggedIn,
+            
         },
+        {
+            title: 'Logout',
+            link: '/logout',
+            show: isLoggedIn,
+
+        }
     ];
 
     const [showNav, SetShowNav] = useState(false);
@@ -133,16 +148,20 @@ export default function NavLayout() {
                 <MdClose/>
             </div>
             {navItems.map((item) => (
-                <li key={item.link}>
-                    <NavLink to={item.link}
-                    exact='true'
-                    onClick={() => SetShowNav(!showNav)}
-                    role='button'
-                    onKeyDown={() => SetShowNav(!showNav)}
-                    >
-                       {item.title}
-                    </NavLink>
-                </li>
+                <>
+                    {item.show() && (
+                        <li key={item.link}>
+                            <NavLink to={item.link}
+                            exact='true'
+                            onClick={() => SetShowNav(!showNav)}
+                            role='button'
+                            onKeyDown={() => SetShowNav(!showNav)}
+                            >
+                            {item.title}
+                            </NavLink>
+                        </li>
+                    )}
+                </>
             ))}
         </ul>
         </NavBarStyle>

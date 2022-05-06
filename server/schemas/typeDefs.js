@@ -14,7 +14,7 @@ const typeDefs = gql`
     type WatchedCoin {
         _id: ID
         coinId: String
-        user: User
+        user: ID
     }
 
     type Pnl {
@@ -22,8 +22,6 @@ const typeDefs = gql`
         coinId: String
         amount: Float
         boughtAt: Float
-        currentPrice: Float
-        netPosition: Float
     }
 
     type Journal {
@@ -41,11 +39,12 @@ const typeDefs = gql`
     type Query {
         users: [User]
         user(username: String!): User
-        watchedCoins(username: String!): [WatchedCoin]
+        watchedCoins(userid: ID!): [WatchedCoin]
         watchedCoin(watchedCoinId: ID!): WatchedCoin
-        pnls(username: String!): [Pnl]
-        pnl(): Pnl
+        pnls(userId: ID!): [Pnl]
+        pnl(pnl: ID!): Pnl
     }
+    
 
 `;
 

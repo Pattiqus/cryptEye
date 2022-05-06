@@ -5,14 +5,23 @@ const pnlSchema = new Schema({
         type: String,
         required: true
     },
+    boughtAt: {
+        type: Date,
+        get: (timestamp) => dateFormat(timestamp),
+      },
     amount: {
         type: Float,
         required: true,
     },
-    boughtAt: {
+    boughtPrice: {
         type: Float,
         required: true,
     },
+    user: 
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+        },
 })
 
 const Pnl = model('pnl', pnlSchema);
