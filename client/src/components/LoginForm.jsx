@@ -6,6 +6,13 @@ import styled from 'styled-components';
 
 import Auth from '../utils/auth';
 
+const FormStyles = styled.div`
+.formContainer {
+  justify-content: center;
+  margin-top: 300px;
+}
+`
+
 const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -41,16 +48,9 @@ const LoginForm = (props) => {
     });
   };
 
-  const FormStyles = styled.div`
-    .formContainer {
-      justify-content: center;
-      margin-top: 300px;
-    }
-  `
-
 return (
-  <>
   <FormStyles>
+  <>
       <div className='formContainer'>
           <h2>Login</h2>
           <form onSubmit={handleFormSubmit}>
@@ -84,8 +84,8 @@ return (
               {error.message}
           </div>
       )}
-  </FormStyles>
   </>
+  </FormStyles>
 )
   
 };

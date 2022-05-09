@@ -7,6 +7,13 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 
+const FormStyles = styled.form`
+.formContainer {
+    justify-content: center;
+    margin-top: 300px;
+}
+`
+
 const SignUpForm = () => {
   const [formState, setFormState] = useState({
     username: '',
@@ -14,15 +21,17 @@ const SignUpForm = () => {
     password: '',
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
-
+  const [username, setUserName] = useState()
   const handleChange = (event) => {
       console.log('handleChange');
+      setUserName(username);
     const { name, value } = event.target;
     console.log(name, value);
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    const temp = {...formState,[name]: value}
+    console.log(temp);
+    setFormState(
+      temp
+    );
     console.log('formState', formState)
   };
 
@@ -41,23 +50,18 @@ const SignUpForm = () => {
     }
   };
 
-  const FormStyles = styled.div`
-    .formContainer {
-        justify-content: center;
-        margin-top: 300px;
-    }
-  `
-
   return (
     <FormStyles>
     <div className='formContainer'>
+        {formState.name}
+        {console.log('formState', formState)}
         <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
                   placeholder="Your username"
                   name="username"
                   type="text"
-                  value={formState.name}
+                  value={username}
                   onChange={handleChange}
                 />
                 <input
