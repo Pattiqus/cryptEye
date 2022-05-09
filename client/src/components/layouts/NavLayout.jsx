@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { MdMenu, MdClose } from 'react-icons/md';
+import auth from '../../utils/auth';
 
 const NavBarStyle = styled.nav`
     position: fixed;
@@ -15,7 +16,7 @@ const NavBarStyle = styled.nav`
         max-width: 1200px;
         margin: 0 auto;
         width: 90%;
-        text-align: center;
+        text-align: right;
         li{
             display: inline-block;
             border-radius: 8px;
@@ -107,7 +108,7 @@ export default function NavLayout() {
         {
             title: 'Signup',
             link: '/signup',
-            show: () => !isLoggedIn(),
+            show: () => isLoggedIn(),
         },
         {
             title: 'Dashboard',
@@ -118,7 +119,7 @@ export default function NavLayout() {
         {
             title: 'Logout',
             link: '/logout',
-            show: isLoggedIn,
+            show: () => !isLoggedIn,
 
         }
     ];
