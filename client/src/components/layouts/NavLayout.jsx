@@ -106,7 +106,7 @@ export default function NavLayout() {
             show: isLoggedIn,
         },
         {
-            title: 'Signup',
+            title: 'Sign up',
             link: '/signup',
             show: () => isLoggedIn(),
         },
@@ -117,7 +117,7 @@ export default function NavLayout() {
             
         },
         {
-            title: 'Logout',
+            title: 'Log out',
             link: '/logout',
             show: () => !isLoggedIn,
 
