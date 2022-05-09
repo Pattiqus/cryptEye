@@ -8,7 +8,7 @@ const typeDefs = gql`
         password: String
         watchedCoin: [WatchedCoin]!
         pnl: [Pnl]!
-        journal: [Journal]!
+        # journal: [Journal]!
     }
 
     type WatchedCoin {
@@ -24,12 +24,12 @@ const typeDefs = gql`
         boughtAt: Float
     }
 
-    type Journal {
-        _id: ID
-        journalSubject: String
-        journalText: String
-        createdAt: String
-    }
+    # type Journal {
+    #     _id: ID
+    #     journalSubject: String
+    #     journalText: String
+    #     createdAt: String
+    # }
 
     type Auth {
         token: ID!
@@ -49,7 +49,6 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         watchCoin(coinId: String!): User
-        
     }
     
 

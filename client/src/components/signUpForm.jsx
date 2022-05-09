@@ -7,11 +7,16 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import styled from 'styled-components';
 
+
 const FormStyles = styled.form`
 .formContainer {
+
+}
+`
+
+const Container = styled.div`
     justify-content: center;
     margin-top: 300px;
-}
 `
 
 const SignUpForm = () => {
@@ -43,25 +48,23 @@ const SignUpForm = () => {
       const { data } = await addUser({
         variables: { ...formState },
       });
-
-      Auth.login(data.addUser.token);
+      if (!error && data.addUser) {
+      Auth.login(data.addUser.token);}
     } catch (e) {
       console.error(e);
     }
   };
 
   return (
-    <FormStyles>
+    <Container>
     <div className='formContainer'>
-        {formState.name}
-        {console.log('formState', formState)}
-        <form onSubmit={handleFormSubmit}>
+        <FormStyles onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
                   placeholder="Your username"
                   name="username"
                   type="text"
-                  value={username}
+                  value={formState.name}
                   onChange={handleChange}
                 />
                 <input
@@ -87,7 +90,7 @@ const SignUpForm = () => {
                 >
                   Submit
                 </button>
-              </form>
+              </FormStyles>
 
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
@@ -95,7 +98,7 @@ const SignUpForm = () => {
               </div>
             )}
     </div>
-    </FormStyles>
+    </Container>
   );
 };
 

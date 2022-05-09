@@ -10,11 +10,11 @@ const pnlSchema = new Schema({
         get: (timestamp) => dateFormat(timestamp),
       },
     amount: {
-        type: Float,
+        type: Number,
         required: true,
     },
     boughtPrice: {
-        type: Float,
+        type: Number,
         required: true,
     },
     user: 
