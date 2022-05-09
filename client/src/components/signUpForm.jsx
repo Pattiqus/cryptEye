@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
+import styled from 'styled-components';
 
-const Signup = () => {
+const SignUpForm = () => {
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -15,12 +16,14 @@ const Signup = () => {
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
+      console.log('handleChange');
     const { name, value } = event.target;
-
+    console.log(name, value);
     setFormState({
       ...formState,
       [name]: value,
     });
+    console.log('formState', formState)
   };
 
   const handleFormSubmit = async (event) => {
@@ -38,8 +41,16 @@ const Signup = () => {
     }
   };
 
+  const FormStyles = styled.div`
+    .formContainer {
+        justify-content: center;
+        margin-top: 300px;
+    }
+  `
+
   return (
-    <div>
+    <FormStyles>
+    <div className='formContainer'>
         <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
@@ -80,7 +91,8 @@ const Signup = () => {
               </div>
             )}
     </div>
+    </FormStyles>
   );
 };
 
-export default Signup;
+export default SignUpForm;

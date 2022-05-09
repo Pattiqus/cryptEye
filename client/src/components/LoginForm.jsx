@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import styled from 'styled-components';
 
 import Auth from '../utils/auth';
 
-const Login = (props) => {
+const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
@@ -40,55 +41,53 @@ const Login = (props) => {
     });
   };
 
-  return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+  const FormStyles = styled.div`
+    .formContainer {
+      justify-content: center;
+      margin-top: 300px;
+    }
+  `
 
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
+return (
+  <>
+  <FormStyles>
+      <div className='formContainer'>
+          <h2>Login</h2>
+          <form onSubmit={handleFormSubmit}>
+              <div>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                      type="text"
+                      name="email"
+                      placeholder="Enter your email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required />
               </div>
-            )}
-          </div>
-        </div>
+              <div>
+                  <label htmlFor="password">Password:</label>
+                  <input
+                      type="password"
+                      name="password"
+                      placeholder="Your password should be longer than 5 characters"
+                      value={formState.password}
+                      onChange={handleChange}
+                      required />
+              </div>
+              <div>
+                  <button type="submit">Log In</button>
+              </div>
+          </form>
       </div>
-    </main>
-  );
+      {error && (
+          <div>
+              {error.message}
+          </div>
+      )}
+  </FormStyles>
+  </>
+)
+  
 };
 
-export default Login;
+export default LoginForm;
