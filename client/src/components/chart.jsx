@@ -71,7 +71,10 @@ export default function App() {
   }, []);
   
   const ChartStyles = styled.div`
-    
+    .tradingview-widget-container {
+      justify-content: center;
+      margin-top: 200px;
+    }
   ` 
 
   return (

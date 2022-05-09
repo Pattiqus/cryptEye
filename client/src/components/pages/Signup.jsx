@@ -1,10 +1,10 @@
 import React from 'react'
-import NavLayout from '../layouts/NavLayout'
+import SignupForm from '../signUpForm'
 
 export default function Signup() {
   return (
     <div>
-        <NavLayout/>
+        <SignupForm/>
     </div>
   )
 }
