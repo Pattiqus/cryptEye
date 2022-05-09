@@ -44,6 +44,13 @@ const typeDefs = gql`
         pnls(userId: ID!): [Pnl]
         pnl(pnl: ID!): Pnl
     }
+
+    type Mutation {
+        addUser(username: String!, email: String!, password: String!): Auth
+        login(email: String!, password: String!): Auth
+        watchCoin(coinId: String!): User
+        
+    }
     
 
 `;
