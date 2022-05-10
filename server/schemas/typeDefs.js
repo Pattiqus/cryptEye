@@ -37,7 +37,6 @@ const typeDefs = gql`
     }
 
     type Query {
-        me: User
         users: [User]
         user(username: String!): User
         watchedCoins(userid: ID!): [WatchedCoin]
@@ -50,6 +49,9 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         watchCoin(coinId: String!): User
+        dropCoin(coinId: String!): User
+        # addPnl(coinId: String! boughtAt: Date!, quantity: Number, boughtPrice: Number, user: [User]): User
+        # dropPnl(pnlId: ID!): User
     }
     
 

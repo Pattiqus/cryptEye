@@ -9,7 +9,7 @@ const pnlSchema = new Schema({
         type: Date,
         get: (timestamp) => dateFormat(timestamp),
       },
-    amount: {
+    quantity: {
         type: Number,
         required: true,
     },
