@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-
-
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
@@ -134,7 +132,6 @@ const SignUpForm = () => {
                   onChange={handleChange}
                 />
                 <button
-                  className="btn btn-block btn-primary"
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >

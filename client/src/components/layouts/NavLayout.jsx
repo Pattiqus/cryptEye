@@ -117,15 +117,15 @@ export default function NavLayout() {
             show: false,
             
         },
-        {
-            title: 'Log out',
-            link: '/',
-            show: false,
-            onClick: ((e) => {
-                logout(e);
-                console.log("logging out");
-            })
-        }
+        // {
+        //     title: 'Log out',
+        //     link: '/',
+        //     show: false,
+        //     onClick: ((e) => {
+        //         logout(e);
+        //         console.log("logging out");
+        //     })
+        // }
     ];
 
     const [showNav, SetShowNav] = useState(false);
@@ -168,6 +168,16 @@ export default function NavLayout() {
                         <li key={item.link}></li>
                     )
             ))}
+            <li key='/'>
+                {Auth.loggedIn() ? (
+                    <NavLink to='/' onClick={logout}>
+                        Logout
+                    </NavLink>
+                ) : (
+                    <li></li>
+                )}
+            </li>
+
         </ul>
         </NavBarStyle>
     </div>
