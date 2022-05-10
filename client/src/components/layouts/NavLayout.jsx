@@ -94,10 +94,10 @@ const NavBarStyle = styled.nav`
 `;
 export default function NavLayout() {
 
-    // const logout = (event) => {
-    //     event.preventDefault();
-    //     Auth.logout();
-    // };
+    const logout = (event) => {
+        event.preventDefault();
+        Auth.logout();
+    };
   
 
     const navItems = [
@@ -119,9 +119,12 @@ export default function NavLayout() {
         },
         {
             title: 'Log out',
-            link: '/logout',
+            link: '/',
             show: false,
-            // onClick: logout()
+            onClick: ((e) => {
+                logout(e);
+                console.log("logging out");
+            })
         }
     ];
 
