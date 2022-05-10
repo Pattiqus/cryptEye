@@ -31,14 +31,14 @@ const NavBarStyle = styled.nav`
         font-family: 'RobotoMono Regular';
         padding: 1rem 2rem;
         font-size: 2rem;
-        color: var(--gray-1);
+        color: var(--gold-2);
         outline: none;
     }
     .active {
-        color: var(--steel-1);
+        color: var(--gold-1);
         border: solid;
         border-radius: 8px;
-        border-color: var(--steel-1);
+        border-color: var(--gold-1);
     }
     .mobile-menu-icon {
         position: absolute;
@@ -93,6 +93,11 @@ const NavBarStyle = styled.nav`
     }
 `;
 export default function NavLayout() {
+
+    // const logout = (event) => {
+    //     event.preventDefault();
+    //     Auth.logout();
+    // };
   
 
     const navItems = [
@@ -114,8 +119,9 @@ export default function NavLayout() {
         },
         {
             title: 'Log out',
-            link: '/',
+            link: '/logout',
             show: false,
+            // onClick: logout()
         }
     ];
 

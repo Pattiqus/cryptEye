@@ -14,6 +14,8 @@ const GlobalStyles = createGlobalStyle`
     --gray-2: #363636;
     --white : white;
     --black: black;
+    --gold-1: #EDA800;
+    --gold-2: #A57C00
   }
   html{
     font-size: 10px;

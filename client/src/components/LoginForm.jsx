@@ -8,9 +8,58 @@ import Auth from '../utils/auth';
 
 const FormStyles = styled.div`
 .formContainer {
-  justify-content: center;
-  margin-top: 300px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 400px;
 }
+h2 {
+  font-size: 4rem;
+}
+width: 50%;
+  .form-group {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
+  label {
+    font-size: 1.8rem;
+  }
+  input,
+  textarea {
+    width: 100%;
+    font-size: 2rem;
+    padding: 1.2rem;
+    color: var(--gray-1);
+    background-color: var(--deep-dark);
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+  textarea {
+    min-height: 250px;
+    resize: vertical;
+  }
+  .text-warning {
+    color: red;
+  }
+  button[type='submit'] {
+    background-color: var(--black);
+    color: var(--gold-1);
+    border-color: var(--gold-1);
+    font-size: 2rem;
+    display: inline-block;
+    outline: none;
+    border: solid;
+    padding: 1rem 4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+    background-color: var(--gold-1);
+    color: var(--black);
+  }
+  }
 `
 
 const LoginForm = (props) => {
