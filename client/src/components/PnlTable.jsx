@@ -60,11 +60,12 @@ const ContainerStyles = styled.div`
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
 
-  const calculatePnl = () => {
 
-  }
+  // const calculatePnl = () => {
 
-  const [formState, setFormState] = useState({ coinId: '', quantity: 0,  });
+  // }
+
+  // const [formState, setFormState] = useState({ coinId: '', quantity: 0,  });
   
   const saveCoin = (props) => {
     // const tradingView = await fetch()
@@ -119,7 +120,7 @@ export default function PnlTable() {
                 }
            </tr>
             { /* map through existing coins */}
-            { showInput && 
+            { showInput && (
             <tr>
                 <td className='addCurrancy'><label>Select Coin</label><select>Select Coin</select></td>
                 <td className='addQuantity'><label>Quantity bought</label><input type="text"></input></td>
@@ -129,7 +130,7 @@ export default function PnlTable() {
                 <td className='netPos'></td>
                 <td><button onClick={setShowInput(false)}>❌</button></td>
             </tr>
-            }
+            )}
         </table>
         {showInput && <button onClick={saveCoin} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
