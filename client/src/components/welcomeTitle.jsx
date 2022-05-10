@@ -21,6 +21,7 @@ const HeroStyles = styled.div`
         span {
             display: inline-block;
             width: 100%;
+            color: var(--gold-2);
         }
         .hero__name {
             font-size: 7rem;
@@ -33,7 +34,7 @@ const HeroStyles = styled.div`
         width: 100%;
         height: 600px;
         margin: 0 auto;
-        border: 2px solid var(--gray-1);
+        border: 2px solid var(--gold-2);
     }
     .hero__info {
         margin-top: -18rem;

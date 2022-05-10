@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const TableStyles = styled.table`
-  
-`
 const ContainerStyles = styled.div`
   .tableContainer {
   justify-content: center;
@@ -41,8 +38,21 @@ const ContainerStyles = styled.div`
     border-right: solid;
     border-color: var(--gold-1);
     border:  1px solid;
-    
-    
+  }
+  .addCoinButton {
+    font-family: 'RobotoMono Regular';
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    color: var(--gold-2);
+    outline: none;
+    background-color: black;
+    border-radius: 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--gold-1);
+      color: black;
+    }
+
   }
 
 `
@@ -111,10 +121,10 @@ export default function PnlTable() {
             { /* map through existing coins */}
             { showInput && 
             <tr>
-                <td className='addCurrancy'><select>Select Coin</select></td>
-                <td className='addQuantity'><input type="text"></input></td>
-                <td className='boughtDate'></td>
-                <td className='boughtPrice'></td>
+                <td className='addCurrancy'><label>Select Coin</label><select>Select Coin</select></td>
+                <td className='addQuantity'><label>Quantity bought</label><input type="text"></input></td>
+                <td className='boughtDate'><label>Date Bought</label><input type="text"></input></td>
+                <td className='boughtPrice'><label>Price bought</label><input type="text"></input></td>
                 <td className='currentPrice'></td>
                 <td><button onClick={setShowInput(false)}>X</button></td>
             </tr>
