@@ -174,7 +174,7 @@ export default function NavLayout() {
                         Logout
                     </NavLink>
                 ) : (
-                    <li></li>
+                    <div></div>
                 )}
             </li>
 

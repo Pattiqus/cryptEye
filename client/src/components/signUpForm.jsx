@@ -74,18 +74,16 @@ const SignUpForm = () => {
     password: '',
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
-  const [username, setUserName] = useState()
+
+
   const handleChange = (event) => {
-      console.log('handleChange');
-      setUserName(username);
+
     const { name, value } = event.target;
-    console.log(name, value);
-    const temp = {...formState,[name]: value}
-    console.log(temp);
-    setFormState(
-      temp
-    );
-    console.log('formState', formState)
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   const handleFormSubmit = async (event) => {
@@ -96,6 +94,7 @@ const SignUpForm = () => {
       const { data } = await addUser({
         variables: { ...formState },
       });
+
       if (!error && data.addUser) {
       Auth.login(data.addUser.token);}
     } catch (e) {
