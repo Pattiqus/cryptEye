@@ -89,7 +89,7 @@ const SignUpForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-
+    console.log('handform')
     try {
       const { data } = await addUser({
         variables: { ...formState },
@@ -133,6 +133,7 @@ const SignUpForm = () => {
                 <button
                   style={{ cursor: 'pointer' }}
                   type="submit"
+                  onClick={handleFormSubmit}
                 >
                   Submit
                 </button>
