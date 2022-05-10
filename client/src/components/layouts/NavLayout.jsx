@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink } from "react-router-dom";
 import styled from 'styled-components';
 import { MdMenu, MdClose } from 'react-icons/md';
-import auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 
 const NavBarStyle = styled.nav`
     position: fixed;
@@ -94,33 +94,28 @@ const NavBarStyle = styled.nav`
 `;
 export default function NavLayout() {
   
-    function isLoggedIn(){
-        // 
-        return true;
-    }
 
     const navItems = [
         {
             title: 'Home',
             link: '/',
-            show: isLoggedIn,
+            show: true
         },
         {
             title: 'Sign up',
             link: '/signup',
-            show: () => isLoggedIn(),
+            show: true,
         },
         {
             title: 'Dashboard',
             link: '/dashboard',
-            show: isLoggedIn,
+            show: false,
             
         },
         {
             title: 'Log out',
-            link: '/logout',
-            show: () => !isLoggedIn,
-
+            link: '/',
+            show: false,
         }
     ];
 
@@ -149,8 +144,7 @@ export default function NavLayout() {
                 <MdClose/>
             </div>
             {navItems.map((item) => (
-                <>
-                    {item.show() && (
+                    Auth.loggedIn() === !item.show ? (
                         <li key={item.link}>
                             <NavLink to={item.link}
                             exact='true'
@@ -161,8 +155,9 @@ export default function NavLayout() {
                             {item.title}
                             </NavLink>
                         </li>
-                    )}
-                </>
+                    ) : (
+                        <li key={item.link}></li>
+                    )
             ))}
         </ul>
         </NavBarStyle>
