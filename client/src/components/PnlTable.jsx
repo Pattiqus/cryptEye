@@ -126,7 +126,8 @@ export default function PnlTable() {
                 <td className='boughtDate'><label>Date Bought</label><input type="text"></input></td>
                 <td className='boughtPrice'><label>Price bought</label><input type="text"></input></td>
                 <td className='currentPrice'></td>
-                <td><button onClick={setShowInput(false)}>X</button></td>
+                <td className='netPos'></td>
+                <td><button onClick={setShowInput(false)}>❌</button></td>
             </tr>
             }
         </table>
