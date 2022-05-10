@@ -49,7 +49,7 @@ function App() {
             <Routes>
                 <Route path='/' element={Auth.loggedIn() ? <Navigate replace to='/dashboard'/> : <Home/>}/>
                 <Route path='/signup' element={<Signup/>}/>
-                <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/dashboard' element={Auth.loggedIn() ? <Dashboard/> : <Navigate replace to='/'/>}/>
             </Routes>
           <FooterLayout/>
         </Router>

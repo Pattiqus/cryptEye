@@ -5,13 +5,13 @@ const pnlSchema = new Schema({
         type: String,
         required: true
     },
-    boughtAt: {
-        type: Date,
-        get: (timestamp) => dateFormat(timestamp),
-      },
     quantity: {
         type: Number,
         required: true,
+    },
+    boughtDate: {
+        type: Date,
+        get: (timestamp) => dateFormat(timestamp),
     },
     boughtPrice: {
         type: Number,
