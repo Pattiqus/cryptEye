@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Pnl() {
+
   return (
     <div>
         <table>
@@ -12,7 +13,10 @@ export default function Pnl() {
                 <th>Net Position</th>
             </tr>
             <tr>
-                <td>Alfreds Futterkiste</td>
+                <td><select type="text"
+                      name=""
+                      placeholder="Enter your email"
+                      value={formState.email}></input></td>
                 <td>Maria Anders</td>
                 <td>Germany</td>
             </tr>
@@ -25,3 +29,4 @@ export default function Pnl() {
     </div>
   )
 }
+
