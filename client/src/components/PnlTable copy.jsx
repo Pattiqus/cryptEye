@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PnlReadOnlyRow from "./components/ReadOnlyRow";
+import PnlEditableRow from "./components/EditableRow";
 
 const ContainerStyles = styled.div`
   .tableContainer {
@@ -58,45 +60,46 @@ const ContainerStyles = styled.div`
 `
 
 export default function PnlTable() {
-  const [showInput, setShowInput] = useState(false);
+  const [inputCoin, setInputCoin] = useState(data);
+  const [addFormData, setAddFormData] = useState({
+    coinId: "",
+    quantity: "",
+    boughtDate: "",
+    boughtPrice: "",
+  });
 
+  const [editFormData, setEditFormData] = useState({
+    coinId: "",
+    quantity: "",
+    boughtDate: "",
+    boughtPrice: "",
+  });
 
+  const [editInputId, setEditInputId] = useState(null);
 
-  // const calculatePnl = () => {
+  const handleAddFormChange = (event) => {
+    event.preventDefault();
 
-  // }
+    const fieldName = event.target.getAttribute("Coin");
+    const fieldValue = event.target.value;
 
-  // const [formState, setFormState] = useState({ coinId: '', quantity: 0,  });
-  
-  const saveCoin = (props) => {
-    // const tradingView = await fetch()
-    // code to post data
-        // code to reset form state
-        // const handleCoinSubmit = async (event) => {
-        //     event.preventDefault();
-        //     console.log(formState);
-        //     try {
-        //       const { data } = await login({
-        //         variables: { ...formState },
-        //       });
-        
-        //       Auth.login(data.login.token);
-        //     } catch (e) {
-        //       console.error(e);
-        //     }
-        
-        //     // clear form values
-        //     setFormState({
-        //       coinId: '',
-        //       quantity: '',
-        //       boughtDate: '',
-        //       boughtPrice: '',
-        //     });
-        //   };
-        
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
 
-        setShowInput(false);
-  }
+    setAddFormData(newFormData);
+  };
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("nameCoin");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+
+    setEditFormData(newFormData);
+  };
 
   return (
     <div>
@@ -128,10 +131,10 @@ export default function PnlTable() {
             <tfoot>
             { showInput && (
               <tr>
-                  <td className='addCurrancy'><label>Select Coin</label><select>Select Coin</select></td>
-                  <td className='addQuantity'><label>Quantity bought</label><input type="text"></input></td>
-                  <td className='boughtDate'><label>Date Bought</label><input type="text"></input></td>
-                  <td className='boughtPrice'><label>Price bought</label><input type="text"></input></td>
+                  <td className='addCurrancy'><select></select></td>
+                  <td className='addQuantity'><input type="text"></input></td>
+                  <td className='boughtDate'><input type="text"></input></td>
+                  <td className='boughtPrice'><input type="text"></input></td>
                   <td className='currentPrice'></td>
                   <td className='netPos'></td>
                   <td><button onClick={setShowInput(false)}>❌</button></td>

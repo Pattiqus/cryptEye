@@ -20,8 +20,10 @@ const typeDefs = gql`
     type Pnl {
         _id: ID
         coinId: String
-        amount: Float
-        boughtAt: Float
+        quantity: Float
+        boughtDate: String
+        boughtPrice: Float
+
     }
 
     # type Journal {
@@ -39,8 +41,6 @@ const typeDefs = gql`
     type Query {
         users: [User]
         user(username: String!): User
-        watchedCoins(userid: ID!): [WatchedCoin]
-        watchedCoin(watchedCoinId: ID!): WatchedCoin
         pnls(userId: ID!): [Pnl]
         pnl(pnl: ID!): Pnl
     }
@@ -48,10 +48,8 @@ const typeDefs = gql`
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        watchCoin(coinId: String!): User
-        dropCoin(coinId: String!): User
-        # addPnl(coinId: String! boughtAt: Date!, quantity: Number, boughtPrice: Number, user: [User]): User
-        # dropPnl(pnlId: ID!): User
+        addPnl(coinId: String!, quantity: Float! boughtDate: String!, boughtPrice: Float): User
+        dropPnl(pnlId: ID!): User
     }
     
 
