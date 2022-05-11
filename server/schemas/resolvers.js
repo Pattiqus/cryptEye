@@ -1,5 +1,6 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express');
-const { User } = require('../models');
+const { PossibleFragmentSpreadsRule } = require('graphql');
+const { User, Pnl } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -30,6 +31,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+        addPnl: async (parent, args) => {
+            const pnl = await Pnl.create({ ...args });
+            return pnl
+        },
+        dropPnl: async (parent, { pnlId }) => {
+            return Pnl.findByIdAndDelete({ _id: Pnl});
+        }
     }
 }
 
