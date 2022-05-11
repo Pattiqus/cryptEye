@@ -102,7 +102,6 @@ export default function PnlTable() {
     <div>
       <ContainerStyles>
       <div className='tableContainer'>
-      <form>
         <table>
             <thead>
               <tr className='tableTitles'>
@@ -141,7 +140,6 @@ export default function PnlTable() {
         </table>
         {showInput && <button onClick={saveCoin} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
-      </form>
       </div>
       </ContainerStyles>
     </div>

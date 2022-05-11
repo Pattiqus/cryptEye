@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import { nanoid } from "nanoid";
-import PnlReadOnlyRow from "./components/ReadOnlyRow";
-import PnlEditableRow from "./components/EditableRow";
+import EditableRow from './EditableRow';
+import ReadOnlyRow from './ReadOnlyRow';
 
 const ContainerStyles = styled.div`
   .tableContainer {
@@ -68,7 +68,7 @@ export default function PnlTable() {
         // code to reset form state
         setShowInput(false);
   }
-  const [inputCoin, setInputCoin] = useState(data);
+  const [inputs, setInputs] = useState([]);
   const [addFormData, setAddFormData] = useState({
     coinId: "",
     quantity: "",
@@ -112,7 +112,7 @@ export default function PnlTable() {
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
-    const newCoin = {
+    const newInput = {
       id: nanoid(),
       coinId: addFormData.coinId,
       quantity: addFormData.quantity,
@@ -120,15 +120,61 @@ export default function PnlTable() {
       boughtPrice: addFormData.boughtPrice,
     };
 
-    const newCoins = [...inputCoin, newCoin];
-    setInputCoin(newCoins);
+    const newInputs = [...inputs, newInput];
+    setInputs(newInputs);
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+
+    const editedInput = {
+      id: editInputId,
+      coinId: addFormData.coinId,
+      quantity: addFormData.quantity,
+      boughtDate: addFormData.boughtDate,
+      boughtPrice: addFormData.boughtPrice,
+    };
+
+    const newInputs = [...inputs];
+
+    const index = inputs.findIndex((input) => input.id === editInputId);
+
+    newInputs[index] = editedInput;
+
+    setInputs(newInputs);
+    setEditInputId(null);
+  };
+
+  const handleEditClick = (event, input) => {
+    event.preventDefault();
+    setEditInputId(input.id);
+
+    const formValues = {
+      coinId: input.coinId,
+      quantity: input.quantity,
+      boughtDate: input.boughtDate,
+      boughtPrice: input.boughtPrice,
+    };    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditInputId(null);
+  };
+
+  const handleDeleteClick = (inputId) => {
+    const newInputs = [...inputs];
+
+    const index = inputs.findIndex((input) => input.id === inputId);
+
+    newInputs.splice(index, 1);
+
+    setInputs(newInputs);
   };
 
   return (
     <div>
       <ContainerStyles>
       <div className='tableContainer'>
-      <form>
         <table>
             <thead>
               <tr className='tableTitles'>
@@ -138,26 +184,41 @@ export default function PnlTable() {
                   <th>Bought for</th>
                   <th>Current price</th>
                   <th>Net Position</th>
+                  <th>Edit</th>
                   <th className='removeHead'>Remove</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                  {
-                    //  pnlData.map((v)=>{
-                    //      return <td>{data[v]}</td>
-                    //  })
-                  }
-            </tr>
-           </tbody>
+            {inputs && inputs.length > 0 && inputs.map((input) => (
+              <Fragment>
+                {editInputId === input.id ? (
+                  <EditableRow
+                    editFormData={editFormData}
+                    handleEditFormChange={handleEditFormChange}
+                    handleCancelClick={handleCancelClick}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    input={input}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </tbody>
             { /* map through existing coins */}
             <tfoot>
             { showInput && (
               <tr>
                   <td className='addCurrancy'>
-                    <select>
-
-                    </select>
+                  <input 
+                    type="text"
+                    required="required"
+                    placeholder="CUR"
+                    name="addCurrancy"
+                    onChange={handleAddFormChange}>
+                    </input>
                   </td>
                   <td className='addQuantity'>
                     <input 
@@ -190,14 +251,16 @@ export default function PnlTable() {
                   <td className='netPos'>
                     {/**use function to calculate PNL between current price and bought price */}
                   </td>
-                  <td><button onClick={setShowInput(false)}>❌</button></td>
+                  <td></td>
+                  <td>
+                    <button onClick={() => setShowInput(false)}>❌</button>
+                  </td>
               </tr>
             )}
             </tfoot>
         </table>
         {showInput && <button onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
-      </form>
       </div>
       </ContainerStyles>
     </div>

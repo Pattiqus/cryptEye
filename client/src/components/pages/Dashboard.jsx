@@ -1,6 +1,6 @@
 import React from 'react'
 import Chart from '../Chart.jsx'
-import PnlTable from '../PnlTable.jsx'
+import PnlTableTEST from '../PnlTableTEST.jsx'
 import WelcomeTitle from '../welcomeTitle'
 
 export default function Dashboard() {
@@ -9,7 +9,7 @@ export default function Dashboard() {
     <div>
       <WelcomeTitle/>
       <Chart/>
-      <PnlTable/>
+      <PnlTableTEST/>
     </div>
   )
 }
