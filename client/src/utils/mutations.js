@@ -23,3 +23,27 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_PNL = gql`
+  mutation addPnl($input: PostPnl!) {
+    addPnl(input: $input) {
+      _id
+      coinId
+      quantity
+      boughtDate
+      boughtPrice
+    }
+  }
+`;
+
+export const DROP_PNL = gql`
+  mutation dropPnl($id: ID!) {
+    dropPnl(_id: $id) {
+      _id
+      coinId
+      quantity
+      boughtDate
+      boughtPrice
+    }
+  }
+`;

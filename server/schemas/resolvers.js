@@ -1,5 +1,4 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express');
-const { PossibleFragmentSpreadsRule } = require('graphql');
 const { User, Pnl } = require('../models');
 const { signToken } = require('../utils/auth');
 
