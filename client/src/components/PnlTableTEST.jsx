@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
+import { nanoid } from "nanoid";
 import PnlReadOnlyRow from "./components/ReadOnlyRow";
 import PnlEditableRow from "./components/EditableRow";
 
@@ -60,6 +61,13 @@ const ContainerStyles = styled.div`
 `
 
 export default function PnlTable() {
+  const [showInput, setShowInput] = useState(false);
+
+  const saveCoin = (props) => {
+    // code to post data
+        // code to reset form state
+        setShowInput(false);
+  }
   const [inputCoin, setInputCoin] = useState(data);
   const [addFormData, setAddFormData] = useState({
     coinId: "",
@@ -80,7 +88,7 @@ export default function PnlTable() {
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute("Coin");
+    const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     const newFormData = { ...addFormData };
@@ -92,13 +100,28 @@ export default function PnlTable() {
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute("nameCoin");
+    const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     const newFormData = { ...editFormData };
     newFormData[fieldName] = fieldValue;
 
     setEditFormData(newFormData);
+  };
+
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newCoin = {
+      id: nanoid(),
+      coinId: addFormData.coinId,
+      quantity: addFormData.quantity,
+      boughtDate: addFormData.boughtDate,
+      boughtPrice: addFormData.boughtPrice,
+    };
+
+    const newCoins = [...inputCoin, newCoin];
+    setInputCoin(newCoins);
   };
 
   return (
@@ -131,18 +154,48 @@ export default function PnlTable() {
             <tfoot>
             { showInput && (
               <tr>
-                  <td className='addCurrancy'><select></select></td>
-                  <td className='addQuantity'><input type="text"></input></td>
-                  <td className='boughtDate'><input type="text"></input></td>
-                  <td className='boughtPrice'><input type="text"></input></td>
-                  <td className='currentPrice'></td>
-                  <td className='netPos'></td>
+                  <td className='addCurrancy'>
+                    <select>
+
+                    </select>
+                  </td>
+                  <td className='addQuantity'>
+                    <input 
+                    type="text"
+                    required="required"
+                    placeholder="Qty"
+                    name="addQuantity"
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='boughtDate'>
+                    <input type="text"
+                    required="required"
+                    placeholder="Date Bought"
+                    name="boughtDate"
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='boughtPrice'>
+                    <input type="text"
+                    required="required"
+                    placeholder="USDT"
+                    name="boughtPrice"
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='currentPrice'>
+                    {/**get from tradingview somehow */}
+                  </td>
+                  <td className='netPos'>
+                    {/**use function to calculate PNL between current price and bought price */}
+                  </td>
                   <td><button onClick={setShowInput(false)}>❌</button></td>
               </tr>
             )}
             </tfoot>
         </table>
-        {showInput && <button onClick={saveCoin} >Save coin</button>}
+        {showInput && <button onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
       </form>
       </div>
