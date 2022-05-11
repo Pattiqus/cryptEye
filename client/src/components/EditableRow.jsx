@@ -13,7 +13,7 @@ const EditableRow = ({
           required="required"
           placeholder="CUR"
           name="addCurrancy"
-          value={editFormData.addCurrancy}
+          value={editFormData.coinId}
           onChange={handleEditFormChange}
         ></input>
       </td>
@@ -47,8 +47,12 @@ const EditableRow = ({
           onChange={handleEditFormChange}
         ></input>
       </td>
+      <td></td>
+      <td></td>
       <td>
         <button type="submit">Save</button>
+      </td>
+      <td>
         <button type="button" onClick={handleCancelClick}>
           Cancel
         </button>

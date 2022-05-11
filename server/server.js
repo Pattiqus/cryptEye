@@ -1,5 +1,7 @@
 // # IMPORT: express package
 const express = require('express');
+const cors = require('cors');
+
 // # IMPORT: ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
@@ -22,15 +24,19 @@ const server = new ApolloServer({
 });
 
 // #Middleware: parsing JSON and urlencoded form data
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // #IF: we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
+  console.log('asd')
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 // #GET Route for homepage
+app.use('/api', require('./api.routes'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });

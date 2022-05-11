@@ -1,64 +1,19 @@
 import React, { useState, Fragment } from 'react';
-import styled from 'styled-components';
+
 import { nanoid } from "nanoid";
 import EditableRow from './EditableRow';
 import ReadOnlyRow from './ReadOnlyRow';
+import { getCurrentPrice } from '../utils/api';
+import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
 
-const ContainerStyles = styled.div`
-  .tableContainer {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  }
-  table {
-    /* border:  1px solid yellow; */
-    width: 997.99px;
-    /* border-color: var(--gold-1);
-    /* border-collapse: collapse; */
-    /* border-radius: 5px 5px 0px 0px; */
-  }
-  tr {
-    line-height: 50px;
-    border:  1px solid;
-    border-color: var(--gold-1);
-  }
-  th {
-    font-size: 15px;
-    display: table-cell;
-    border:  3px solid;
-    border-color: var(--gold-1);
-    background-color: var(--gold-1);
-    color: black;
-  }
-  .currancyHead {
-    border-radius: 35px 0px 0px 0px;
-  }
-  .removeHead {
-    border-radius: 0px 35px 0px 0px;
-  }
-  td {
-    border-left: solid ;
-    border-right: solid;
-    border-color: var(--gold-1);
-    border:  1px solid;
-  }
-  .addCoinButton {
-    font-family: 'RobotoMono Regular';
-    padding: 1rem 2rem;
-    font-size: 2rem;
-    color: var(--gold-2);
-    outline: none;
-    background-color: black;
-    border-radius: 10px;
-    &:hover {
-      cursor: pointer;
-      background-color: var(--gold-1);
-      color: black;
-    }
-
-  }
-
-`
+const formDefaults = {
+  coinId: "",
+  quantity: "",
+  boughtDate: "",
+  boughtPrice: "",
+  currentPrice: null,
+  netPos: null
+};
 
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
@@ -69,23 +24,13 @@ export default function PnlTable() {
         setShowInput(false);
   }
   const [inputs, setInputs] = useState([]);
-  const [addFormData, setAddFormData] = useState({
-    coinId: "",
-    quantity: "",
-    boughtDate: "",
-    boughtPrice: "",
-  });
+  const [addFormData, setAddFormData] = useState(formDefaults);
 
-  const [editFormData, setEditFormData] = useState({
-    coinId: "",
-    quantity: "",
-    boughtDate: "",
-    boughtPrice: "",
-  });
+  const [editFormData, setEditFormData] = useState();
 
   const [editInputId, setEditInputId] = useState(null);
 
-  const handleAddFormChange = (event) => {
+  const handleAddFormChange = async (event) => {
     event.preventDefault();
 
     const fieldName = event.target.getAttribute("name");
@@ -93,6 +38,15 @@ export default function PnlTable() {
 
     const newFormData = { ...addFormData };
     newFormData[fieldName] = fieldValue;
+
+    if (fieldName === 'coinId' && fieldValue.length >= 3) { 
+      newFormData.currentPrice = await getCurrentPrice(fieldValue);
+      if (newFormData.boughtPrice.length) {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+      }
+    } else if (fieldName === 'boughtPrice') {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+    }
 
     setAddFormData(newFormData);
   };
@@ -112,16 +66,15 @@ export default function PnlTable() {
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
+    console.log(addFormData)
     const newInput = {
-      id: nanoid(),
-      coinId: addFormData.coinId,
-      quantity: addFormData.quantity,
-      boughtDate: addFormData.boughtDate,
-      boughtPrice: addFormData.boughtPrice,
+      id: nanoid(), 
+      ...addFormData
     };
-
     const newInputs = [...inputs, newInput];
+
     setInputs(newInputs);
+    setAddFormData(formDefaults);
   };
 
   const handleEditFormSubmit = (event) => {
@@ -216,7 +169,8 @@ export default function PnlTable() {
                     type="text"
                     required="required"
                     placeholder="CUR"
-                    name="addCurrancy"
+                    name="coinId"
+                    value={addFormData.coinId}
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
@@ -225,7 +179,8 @@ export default function PnlTable() {
                     type="text"
                     required="required"
                     placeholder="Qty"
-                    name="addQuantity"
+                    name="quantity"
+                    value={addFormData.quantity}
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
@@ -234,6 +189,7 @@ export default function PnlTable() {
                     required="required"
                     placeholder="Date Bought"
                     name="boughtDate"
+                    value={addFormData.boughtDate}
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
@@ -242,14 +198,15 @@ export default function PnlTable() {
                     required="required"
                     placeholder="USDT"
                     name="boughtPrice"
+                    value={addFormData.boughtPrice}
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
                   <td className='currentPrice'>
-                    {/**get from tradingview somehow */}
+                    {addFormData && addFormData.currentPrice}
                   </td>
                   <td className='netPos'>
-                    {/**use function to calculate PNL between current price and bought price */}
+                    {addFormData && addFormData.netPos}
                   </td>
                   <td></td>
                   <td>
