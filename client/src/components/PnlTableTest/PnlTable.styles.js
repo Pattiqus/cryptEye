@@ -5,6 +5,8 @@ const ContainerStyles = styled.div`
   justify-content: center;
   text-align: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   }
   table {
     /* border:  1px solid yellow; */
@@ -14,7 +16,6 @@ const ContainerStyles = styled.div`
     /* border-radius: 5px 5px 0px 0px; */
   }
   tr {
-    line-height: 50px;
     border:  1px solid;
     border-color: var(--gold-1);
   }
@@ -27,10 +28,10 @@ const ContainerStyles = styled.div`
     color: black;
   }
   .currancyHead {
-    border-radius: 35px 0px 0px 0px;
+    border-radius: 10px 0px 0px 0px;
   }
   .removeHead {
-    border-radius: 0px 35px 0px 0px;
+    border-radius: 0px 10px 0px 0px;
   }
   td {
     border-left: solid ;
