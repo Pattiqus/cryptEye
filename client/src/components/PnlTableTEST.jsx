@@ -12,16 +12,21 @@ import { QUERY_PNLS } from '../utils/queries';
 const formDefaults = {
   coinId: "",
   quantity: "",
-  boughtDate: "",
+  boughtDate: new Date(),
   boughtPrice: "",
 };
 
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
+  const { loading, data } = useQuery(QUERY_PNLS);
+  const pnlDb = data?.pnls;
+  
+
 
   const [inputs, setInputs] = useState([]);
   const [addFormData, setAddFormData] = useState(formDefaults);
   const [addPnl, { error }] = useMutation(ADD_PNL);
+  
 
   const [editFormData, setEditFormData] = useState();
 
@@ -44,10 +49,10 @@ export default function PnlTable() {
     if (fieldName === 'coinId' && fieldValue.length >= 3) { 
       newFormData.currentPrice = await getCurrentPrice(fieldValue);
       if (newFormData.boughtPrice.length) {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
       }
     } else if (fieldName === 'boughtPrice') {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
     }
 
     setAddFormData(newFormData);
@@ -101,7 +106,7 @@ export default function PnlTable() {
         variables: {
           data : {
             coinId: addFormData.coinId,
-            boughtDate: addFormData.boughtData,
+            boughtDate: addFormData.boughtDate,
             quantity: Number(addFormData.quantity),
             boughtPrice: Number(addFormData.boughtPrice),
           }
@@ -207,7 +212,7 @@ export default function PnlTable() {
               </tr>
             </thead>
             <tbody>
-            {inputs && inputs.length > 0 && inputs.map((input) => (
+            {pnlDb && pnlDb.map((input) => (
               <Fragment>
                 {editInputId === input.id ? (
                   <EditableRow
@@ -252,7 +257,7 @@ export default function PnlTable() {
                     </input>
                   </td>
                   <td className='boughtDate'>
-                    <input type="text"
+                    <input type="date"
                     required="required"
                     placeholder="Date Bought"
                     name="boughtDate"

@@ -12,9 +12,9 @@ export const QUERY_USER = gql`
 
 export const QUERY_PNLS = gql`
   query getPnls {
-    getPnls {
+    pnls {
       _id
-      coinID
+      coinId
       quantity
       boughtDate
       boughtPrice

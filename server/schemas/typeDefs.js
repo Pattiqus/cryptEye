@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+    scalar Date 
     type User {
         _id: ID
         username: String
@@ -14,7 +15,7 @@ const typeDefs = gql`
         _id: ID
         coinId: String
         quantity: Float
-        boughtDate: String
+        boughtDate: Date
         boughtPrice: Float
         user: ID
     }
@@ -22,7 +23,7 @@ const typeDefs = gql`
     input PostPnl {
         coinId: String
         quantity: Float
-        boughtDate: String
+        boughtDate: Date
         boughtPrice: Float
     }
 
