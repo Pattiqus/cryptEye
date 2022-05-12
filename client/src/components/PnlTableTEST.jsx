@@ -18,11 +18,6 @@ const formDefaults = {
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
 
-  const saveCoin = (props) => {
-    // code to post data
-        // code to reset form state
-        setShowInput(false);
-  }
   const [inputs, setInputs] = useState([]);
   const [addFormData, setAddFormData] = useState(formDefaults);
 
@@ -51,7 +46,7 @@ export default function PnlTable() {
     setAddFormData(newFormData);
   };
 
-  const handleEditFormChange = (event) => {
+  const handleEditFormChange = async (event) => {
     event.preventDefault();
 
     const fieldName = event.target.getAttribute("name");
@@ -59,6 +54,15 @@ export default function PnlTable() {
 
     const newFormData = { ...editFormData };
     newFormData[fieldName] = fieldValue;
+
+    if (fieldName === 'coinId' && fieldValue.length >= 3) { 
+      newFormData.currentPrice = await getCurrentPrice(fieldValue);
+      if (newFormData.boughtPrice.length) {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+      }
+    } else if (fieldName === 'boughtPrice') {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+    }
 
     setEditFormData(newFormData);
   };
@@ -82,10 +86,12 @@ export default function PnlTable() {
 
     const editedInput = {
       id: editInputId,
-      coinId: addFormData.coinId,
-      quantity: addFormData.quantity,
-      boughtDate: addFormData.boughtDate,
-      boughtPrice: addFormData.boughtPrice,
+      coinId: editFormData.coinId,
+      quantity: editFormData.quantity,
+      boughtDate: editFormData.boughtDate,
+      boughtPrice: editFormData.boughtPrice,
+      currentPrice: editFormData.currentPrice,
+      netPos: editFormData.netPos
     };
 
     const newInputs = [...inputs];
@@ -107,6 +113,8 @@ export default function PnlTable() {
       quantity: input.quantity,
       boughtDate: input.boughtDate,
       boughtPrice: input.boughtPrice,
+      currentPrice: input.currentPrice,
+      netPos: input.netPos
     };    setEditFormData(formValues);
   };
 
@@ -149,6 +157,8 @@ export default function PnlTable() {
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
+                    handleEditFormSubmit={handleEditFormSubmit}
+                    getCurrentPrice={getCurrentPrice}
                   />
                 ) : (
                   <ReadOnlyRow
@@ -196,7 +206,7 @@ export default function PnlTable() {
                   <td className='boughtPrice'>
                     <input type="text"
                     required="required"
-                    placeholder="USDT"
+                    placeholder="AUD"
                     name="boughtPrice"
                     value={addFormData.boughtPrice}
                     onChange={handleAddFormChange}>

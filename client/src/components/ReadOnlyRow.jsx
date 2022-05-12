@@ -8,7 +8,7 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
       <td>{input.boughtDate}</td>
       <td>{input.boughtPrice}</td>
       <td>{input.currentPrice}</td>
-      <td></td>
+      <td>{input.netPos}</td>
       <td>
         <button
           type="button"

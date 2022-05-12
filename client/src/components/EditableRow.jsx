@@ -4,6 +4,8 @@ const EditableRow = ({
   editFormData,
   handleEditFormChange,
   handleCancelClick,
+  handleEditFormSubmit,
+  getCurrentPrice
 }) => {
   return (
     <tr>
@@ -12,7 +14,7 @@ const EditableRow = ({
           type="text"
           required="required"
           placeholder="CUR"
-          name="addCurrancy"
+          name="coinId"
           value={editFormData.coinId}
           onChange={handleEditFormChange}
         ></input>
@@ -22,8 +24,8 @@ const EditableRow = ({
           type="text"
           required="required"
           placeholder="Qty"
-          name="addQuantity"
-          value={editFormData.address}
+          name="quantity"
+          value={editFormData.quantity}
           onChange={handleEditFormChange}
         ></input>
       </td>
@@ -33,24 +35,24 @@ const EditableRow = ({
           required="required"
           placeholder="Date Bought"
           name="boughtDate"
-          value={editFormData.phoneNumber}
+          value={editFormData.boughtDate}
           onChange={handleEditFormChange}
         ></input>
       </td>
       <td>
         <input
-          type="email"
+          type="text"
           required="required"
-          placeholder="USDT"
+          placeholder="AUD"
           name="boughtPrice"
-          value={editFormData.email}
+          value={editFormData.boughtPrice}
           onChange={handleEditFormChange}
         ></input>
       </td>
-      <td></td>
-      <td></td>
+      <td ></td>
+      <td ></td>
       <td>
-        <button type="submit">Save</button>
+        <button type="submit" onClick={handleEditFormSubmit}>Save</button>
       </td>
       <td>
         <button type="button" onClick={handleCancelClick}>
