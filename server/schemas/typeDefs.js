@@ -49,6 +49,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         addPnl(pnl: [PostPnl]): User
+        editPnl(pnlId: ID!): User
         dropPnl(pnlId: ID!): User
     }
     

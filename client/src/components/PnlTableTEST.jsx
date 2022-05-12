@@ -69,7 +69,9 @@ export default function PnlTable() {
 
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
-
+    if (!addFormData.coinId || !addFormData.quantity) {
+      return ;
+    }
     console.log(addFormData)
     const newInput = {
       id: nanoid(), 
@@ -131,6 +133,10 @@ export default function PnlTable() {
 
     setInputs(newInputs);
   };
+
+  const isFormValid = () => {
+    return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
+  }
 
   return (
     <div>
@@ -226,7 +232,7 @@ export default function PnlTable() {
             )}
             </tfoot>
         </table>
-        {showInput && <button onClick={handleAddFormSubmit} >Save coin</button>}
+        {showInput && <button disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
       </div>
       </ContainerStyles>

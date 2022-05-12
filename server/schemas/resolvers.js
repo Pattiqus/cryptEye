@@ -34,8 +34,12 @@ const resolvers = {
             const pnl = await Pnl.create({ ...args });
             return pnl
         },
+        editPnl: async (parent, args) => {
+            const pnl = await Pnl.findOneAndUpdate({ ...args });
+            return pnl
+        },
         dropPnl: async (parent, { pnlId }) => {
-            return Pnl.findByIdAndDelete({ _id: Pnl});
+            return Pnl.findByIdAndDelete({ _id: pnlId});
         }
     }
 }
