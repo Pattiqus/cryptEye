@@ -36,6 +36,18 @@ export const ADD_PNL = gql`
   }
 `;
 
+export const EDIT_PNL = gql`
+  mutation editPnl($input: PostPnl!) {
+    addPnl(input: $input) {
+      _id
+      coinId
+      quantity
+      boughtDate
+      boughtPrice
+    }
+  }
+`;
+
 export const DROP_PNL = gql`
   mutation dropPnl($id: ID!) {
     dropPnl(_id: $id) {

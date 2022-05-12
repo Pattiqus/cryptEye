@@ -1,10 +1,10 @@
 import React, { useState, Fragment } from 'react';
-
 import { nanoid } from "nanoid";
 import EditableRow from './EditableRow';
 import ReadOnlyRow from './ReadOnlyRow';
 import { getCurrentPrice } from '../utils/api';
 import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
+
 
 const formDefaults = {
   coinId: "",

@@ -5,7 +5,6 @@ const EditableRow = ({
   handleEditFormChange,
   handleCancelClick,
   handleEditFormSubmit,
-  getCurrentPrice
 }) => {
   return (
     <tr>

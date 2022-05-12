@@ -1,101 +1,141 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, Fragment } from 'react';
+import { nanoid } from "nanoid";
+import EditableRow from './EditableRow';
+import ReadOnlyRow from './ReadOnlyRow';
+import { getCurrentPrice } from '../utils/api';
+import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
 
-const ContainerStyles = styled.div`
-  .tableContainer {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  }
-  table {
-    /* border:  1px solid yellow; */
-    width: 997.99px;
-    /* border-color: var(--gold-1);
-    /* border-collapse: collapse; */
-    /* border-radius: 5px 5px 0px 0px; */
-  }
-  tr {
-    line-height: 50px;
-    border:  1px solid;
-    border-color: var(--gold-1);
-  }
-  th {
-    font-size: 15px;
-    display: table-cell;
-    border:  3px solid;
-    border-color: var(--gold-1);
-    background-color: var(--gold-1);
-    color: black;
-  }
-  .currancyHead {
-    border-radius: 35px 0px 0px 0px;
-  }
-  .removeHead {
-    border-radius: 0px 35px 0px 0px;
-  }
-  td {
-    border-left: solid ;
-    border-right: solid;
-    border-color: var(--gold-1);
-    border:  1px solid;
-  }
-  .addCoinButton {
-    font-family: 'RobotoMono Regular';
-    padding: 1rem 2rem;
-    font-size: 2rem;
-    color: var(--gold-2);
-    outline: none;
-    background-color: black;
-    border-radius: 10px;
-    &:hover {
-      cursor: pointer;
-      background-color: var(--gold-1);
-      color: black;
-    }
 
-  }
-
-`
+const formDefaults = {
+  coinId: "",
+  quantity: "",
+  boughtDate: "",
+  boughtPrice: "",
+  currentPrice: null,
+  netPos: null
+};
 
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
 
+  const [inputs, setInputs] = useState([]);
+  const [addFormData, setAddFormData] = useState(formDefaults);
 
+  const [editFormData, setEditFormData] = useState();
 
-  // const calculatePnl = () => {
+  const [editInputId, setEditInputId] = useState(null);
 
-  // }
+  const handleAddFormChange = async (event) => {
+    event.preventDefault();
 
-  // const [formState, setFormState] = useState({ coinId: '', quantity: 0,  });
-  
-  const saveCoin = (props) => {
-    // const tradingView = await fetch()
-    // code to post data
-        // code to reset form state
-        // const handleCoinSubmit = async (event) => {
-        //     event.preventDefault();
-        //     console.log(formState);
-        //     try {
-        //       const { data } = await login({
-        //         variables: { ...formState },
-        //       });
-        
-        //       Auth.login(data.login.token);
-        //     } catch (e) {
-        //       console.error(e);
-        //     }
-        
-        //     // clear form values
-        //     setFormState({
-        //       coinId: '',
-        //       quantity: '',
-        //       boughtDate: '',
-        //       boughtPrice: '',
-        //     });
-        //   };
-        
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
 
-        setShowInput(false);
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
+
+    if (fieldName === 'coinId' && fieldValue.length >= 3) { 
+      newFormData.currentPrice = await getCurrentPrice(fieldValue);
+      if (newFormData.boughtPrice.length) {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+      }
+    } else if (fieldName === 'boughtPrice') {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+    }
+
+    setAddFormData(newFormData);
+  };
+
+  const handleEditFormChange = async (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+
+    if (fieldName === 'coinId' && fieldValue.length >= 3) { 
+      newFormData.currentPrice = await getCurrentPrice(fieldValue);
+      if (newFormData.boughtPrice.length) {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+      }
+    } else if (fieldName === 'boughtPrice') {
+        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+    }
+
+    setEditFormData(newFormData);
+  };
+
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
+    if (!addFormData.coinId || !addFormData.quantity) {
+      return ;
+    }
+    console.log(addFormData)
+    const newInput = {
+      id: nanoid(), 
+      ...addFormData
+    };
+    const newInputs = [...inputs, newInput];
+
+    setInputs(newInputs);
+    setAddFormData(formDefaults);
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+
+    const editedInput = {
+      id: editInputId,
+      coinId: editFormData.coinId,
+      quantity: editFormData.quantity,
+      boughtDate: editFormData.boughtDate,
+      boughtPrice: editFormData.boughtPrice,
+      currentPrice: editFormData.currentPrice,
+      netPos: editFormData.netPos
+    };
+
+    const newInputs = [...inputs];
+
+    const index = inputs.findIndex((input) => input.id === editInputId);
+
+    newInputs[index] = editedInput;
+
+    setInputs(newInputs);
+    setEditInputId(null);
+  };
+
+  const handleEditClick = (event, input) => {
+    event.preventDefault();
+    setEditInputId(input.id);
+
+    const formValues = {
+      coinId: input.coinId,
+      quantity: input.quantity,
+      boughtDate: input.boughtDate,
+      boughtPrice: input.boughtPrice,
+      currentPrice: input.currentPrice,
+      netPos: input.netPos
+    };    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditInputId(null);
+  };
+
+  const handleDeleteClick = (inputId) => {
+    const newInputs = [...inputs];
+
+    const index = inputs.findIndex((input) => input.id === inputId);
+
+    newInputs.splice(index, 1);
+
+    setInputs(newInputs);
+  };
+
+  const isFormValid = () => {
+    return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
   }
 
   return (
@@ -111,34 +151,88 @@ export default function PnlTable() {
                   <th>Bought for</th>
                   <th>Current price</th>
                   <th>Net Position</th>
+                  <th>Edit</th>
                   <th className='removeHead'>Remove</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                  {
-                    //  pnlData.map((v)=>{
-                    //      return <td>{data[v]}</td>
-                    //  })
-                  }
-            </tr>
-           </tbody>
+            {inputs && inputs.length > 0 && inputs.map((input) => (
+              <Fragment>
+                {editInputId === input.id ? (
+                  <EditableRow
+                    editFormData={editFormData}
+                    handleEditFormChange={handleEditFormChange}
+                    handleCancelClick={handleCancelClick}
+                    handleEditFormSubmit={handleEditFormSubmit}
+                    getCurrentPrice={getCurrentPrice}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    input={input}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </tbody>
             { /* map through existing coins */}
             <tfoot>
             { showInput && (
               <tr>
-                  <td className='addCurrancy'><label>Select Coin</label><select>Select Coin</select></td>
-                  <td className='addQuantity'><label>Quantity bought</label><input type="text"></input></td>
-                  <td className='boughtDate'><label>Date Bought</label><input type="text"></input></td>
-                  <td className='boughtPrice'><label>Price bought</label><input type="text"></input></td>
-                  <td className='currentPrice'></td>
-                  <td className='netPos'></td>
-                  <td><button onClick={setShowInput(false)}>❌</button></td>
+                  <td className='addCurrancy'>
+                  <input 
+                    type="text"
+                    required="required"
+                    placeholder="CUR"
+                    name="coinId"
+                    value={addFormData.coinId}
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='addQuantity'>
+                    <input 
+                    type="text"
+                    required="required"
+                    placeholder="Qty"
+                    name="quantity"
+                    value={addFormData.quantity}
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='boughtDate'>
+                    <input type="text"
+                    required="required"
+                    placeholder="Date Bought"
+                    name="boughtDate"
+                    value={addFormData.boughtDate}
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='boughtPrice'>
+                    <input type="text"
+                    required="required"
+                    placeholder="AUD"
+                    name="boughtPrice"
+                    value={addFormData.boughtPrice}
+                    onChange={handleAddFormChange}>
+                    </input>
+                  </td>
+                  <td className='currentPrice'>
+                    {addFormData && addFormData.currentPrice}
+                  </td>
+                  <td className='netPos'>
+                    {addFormData && addFormData.netPos}
+                  </td>
+                  <td></td>
+                  <td>
+                    <button onClick={() => setShowInput(false)}>❌</button>
+                  </td>
               </tr>
             )}
             </tfoot>
         </table>
-        {showInput && <button onClick={saveCoin} >Save coin</button>}
+        {showInput && <button disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
       </div>
       </ContainerStyles>
