@@ -20,7 +20,6 @@ const typeDefs = gql`
     }
 
     input PostPnl {
-        _id: ID
         coinId: String
         quantity: Float
         boughtDate: String
@@ -42,14 +41,14 @@ const typeDefs = gql`
     type Query {
         users: [User]
         user(username: String!): User
-        pnls(userId: ID!): [Pnl]
+        pnls: [Pnl]
         pnl(pnl: ID!): Pnl
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        addPnl(pnl: [PostPnl]): User
+        addPnl(data: PostPnl): User
         editPnl(pnlId: ID!): User
         dropPnl(pnlId: ID!): User
     }

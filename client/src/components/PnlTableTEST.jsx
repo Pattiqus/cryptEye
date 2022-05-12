@@ -14,8 +14,6 @@ const formDefaults = {
   quantity: "",
   boughtDate: "",
   boughtPrice: "",
-  currentPrice: null,
-  netPos: null
 };
 
 export default function PnlTable() {
@@ -87,7 +85,7 @@ export default function PnlTable() {
    * @param {*} event 
    * @returns 
    */
-  const handleAddFormSubmit = (event) => {
+  const handleAddFormSubmit = async (event) => {
     event.preventDefault();
     // if (!addFormData.coinId || !addFormData.quantity) {
     //   return ;
@@ -98,7 +96,20 @@ export default function PnlTable() {
       ...addFormData
     };
     const newInputs = [...inputs, newInput];
-
+    try {
+      const { data } = await addPnl({
+        variables: {
+          data : {
+            coinId: addFormData.coinId,
+            boughtDate: addFormData.boughtData,
+            quantity: Number(addFormData.quantity),
+            boughtPrice: Number(addFormData.boughtPrice),
+          }
+        }
+      })
+    } catch (error){
+      
+    }
     setInputs(newInputs);
     setAddFormData(formDefaults);
   };

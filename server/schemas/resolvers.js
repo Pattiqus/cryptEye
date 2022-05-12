@@ -7,6 +7,9 @@ const resolvers = {
         user: async () => {
             return User.find().populate('Pnl');
         },
+        pnls: async (parent, args, context) => {
+            return Pnl.find({ user: context.user._id });
+        }
     },
     Mutation: {
         login: async (parent, { email, password}) => {
@@ -30,8 +33,8 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addPnl: async (parent, args) => {
-            const pnl = await Pnl.create({ ...args });
+        addPnl: async (parent, args, context) => {
+            const pnl = await Pnl.create({ ...args.data, user: context.user._id });
             return pnl
         },
         editPnl: async (parent, args) => {
