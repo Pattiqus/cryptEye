@@ -20,6 +20,7 @@ const typeDefs = gql`
     }
 
     input PostPnl {
+        _id: ID
         coinId: String
         quantity: Float
         boughtDate: String

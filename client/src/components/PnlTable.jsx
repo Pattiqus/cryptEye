@@ -4,6 +4,7 @@ import EditableRow from './EditableRow';
 import ReadOnlyRow from './ReadOnlyRow';
 import { getCurrentPrice } from '../utils/api';
 import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
+import { ADD_PNL, EDIT_PNL, DROP_PNL } from '../utils/mutations';
 
 
 const formDefaults = {
