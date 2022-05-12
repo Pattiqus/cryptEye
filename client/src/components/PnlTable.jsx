@@ -4,6 +4,7 @@ import EditableRow from './EditableRow';
 import ReadOnlyRow from './ReadOnlyRow';
 import { getCurrentPrice } from '../utils/api';
 import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
+import { useQuery } from '@apollo/client';
 import { ADD_PNL, EDIT_PNL, DROP_PNL } from '../utils/mutations';
 
 
@@ -26,6 +27,11 @@ export default function PnlTable() {
 
   const [editInputId, setEditInputId] = useState(null);
 
+  /**
+   * Function: handleAddFormChange
+   * Description: handles the data for adding a new currancy to the pnl table
+   * @param {*} event 
+   */
   const handleAddFormChange = async (event) => {
     event.preventDefault();
 
@@ -47,6 +53,11 @@ export default function PnlTable() {
     setAddFormData(newFormData);
   };
 
+  /**
+   * Function: handEditFormChange
+   * Description: handles the data for editing an existing currancy log in the pnl table 
+   * @param {*} event 
+   */
   const handleEditFormChange = async (event) => {
     event.preventDefault();
 
@@ -68,6 +79,12 @@ export default function PnlTable() {
     setEditFormData(newFormData);
   };
 
+  /**
+   * Function: handleAddFormSubmit
+   * Description: handles submission of new entry to pnl table
+   * @param {*} event 
+   * @returns 
+   */
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
     if (!addFormData.coinId || !addFormData.quantity) {
@@ -84,6 +101,11 @@ export default function PnlTable() {
     setAddFormData(formDefaults);
   };
 
+  /**
+   * Function: handleEditFormSubmit
+   * Description: handles submission of editted entry existing in the pnl table
+   * @param {*} event 
+   */
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
@@ -107,6 +129,12 @@ export default function PnlTable() {
     setEditInputId(null);
   };
 
+  /**
+   * Function: handleEditClick
+   * Description: onclick function for editing a current entry in the pnl table
+   * @param {*} event 
+   * @param {*} input 
+   */
   const handleEditClick = (event, input) => {
     event.preventDefault();
     setEditInputId(input.id);
@@ -121,10 +149,19 @@ export default function PnlTable() {
     };    setEditFormData(formValues);
   };
 
+  /**
+   * Function: handleCancelClick
+   * Description: cancels editing of existing pnl table entry
+   */
   const handleCancelClick = () => {
     setEditInputId(null);
   };
 
+  /**
+   * Function: handleDeleteClick
+   * Description: Removes a existing entry in the PNL table.
+   * @param {*} inputId 
+   */
   const handleDeleteClick = (inputId) => {
     const newInputs = [...inputs];
 

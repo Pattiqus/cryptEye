@@ -10,4 +10,16 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_PNLS = gql`
+  query getPnls {
+    getPnls {
+      _id
+      coinID
+      quantity
+      boughtDate
+      boughtPrice
+    }
+  }
+`;
+
 

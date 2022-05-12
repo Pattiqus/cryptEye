@@ -16,7 +16,7 @@ const typeDefs = gql`
         quantity: Float
         boughtDate: String
         boughtPrice: Float
-        user: [User]!
+        user: ID
     }
 
     input PostPnl {

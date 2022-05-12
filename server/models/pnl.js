@@ -18,10 +18,10 @@ const pnlSchema = new Schema({
         required: true,
     },
     user: 
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'User',
-        },
+    {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
 })
 
 const Pnl = model('pnl', pnlSchema);
