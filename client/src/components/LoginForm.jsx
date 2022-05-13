@@ -9,13 +9,13 @@ const FormStyles = styled.div`
 .formContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 400px;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 h2 {
-  font-size: 4rem;
+  font-size: 8rem;
+  color: var(--gold-1)
 }
 width: 50%;
   .form-group {
@@ -43,6 +43,9 @@ width: 50%;
   }
   .text-warning {
     color: red;
+  }
+  .buttonContainer {
+    margin-top: 20px;
   }
   button[type='submit'] {
     background-color: var(--black);
@@ -101,7 +104,7 @@ return (
   <FormStyles>
   <>
       <div className='formContainer'>
-          <h2>Login</h2>
+          <h2>Secure Login</h2>
           <form onSubmit={handleFormSubmit}>
               <div>
                   <label htmlFor="email">Email:</label>
@@ -123,7 +126,7 @@ return (
                       onChange={handleChange}
                       required />
               </div>
-              <div>
+              <div className='buttonContainer'>
                   <button type="submit">Log In</button>
               </div>
           </form>
