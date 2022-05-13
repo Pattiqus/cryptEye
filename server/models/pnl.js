@@ -11,7 +11,6 @@ const pnlSchema = new Schema({
     },
     boughtDate: {
         type: Date,
-        get: (timestamp) => dateFormat(timestamp),
     },
     boughtPrice: {
         type: Number,

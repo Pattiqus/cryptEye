@@ -19,7 +19,7 @@ const formDefaults = {
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
   const { loading, data } = useQuery(QUERY_PNLS);
-  const pnlDb = data?.pnls;
+  const pnlDb = data?.pnls
   
 
 
@@ -31,6 +31,8 @@ export default function PnlTable() {
   const [editFormData, setEditFormData] = useState();
 
   const [editInputId, setEditInputId] = useState(null);
+
+  const [dropPnl, { error2 }] = useMutation(DROP_PNL);
 
   /**
    * Function: handleAddFormChange
@@ -193,7 +195,7 @@ export default function PnlTable() {
   const isFormValid = () => {
     return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
   }
-
+  console.log("pnl = ", pnlDb);
   return (
     <div>
       <ContainerStyles>
