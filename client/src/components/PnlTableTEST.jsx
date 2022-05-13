@@ -212,7 +212,7 @@ export default function PnlTable() {
               </tr>
             </thead>
             <tbody>
-            {pnlDb && pnlDb.map((input) => (
+            {pnlDb?.map((input) => (
               <Fragment>
                 {editInputId === input.id ? (
                   <EditableRow
