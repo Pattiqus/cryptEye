@@ -18,21 +18,22 @@ const formDefaults = {
 
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
-  const { loading, data } = useQuery(QUERY_PNLS);
+  const { loading, data, refetch: refetchPnls } = useQuery(QUERY_PNLS);
   const pnlDb = data?.pnls
   
 
 
   const [inputs, setInputs] = useState([]);
   const [addFormData, setAddFormData] = useState(formDefaults);
-  const [addPnl, { error }] = useMutation(ADD_PNL);
+  const [addPnl, { error: adderror }] = useMutation(ADD_PNL);
   
 
   const [editFormData, setEditFormData] = useState();
+  const [editPnl, {error: editerror}] = useMutation(EDIT_PNL);
 
   const [editInputId, setEditInputId] = useState(null);
 
-  const [dropPnl, { error2 }] = useMutation(DROP_PNL);
+  const [dropPnl, { error: droperror }] = useMutation(DROP_PNL);
 
   /**
    * Function: handleAddFormChange
@@ -94,9 +95,7 @@ export default function PnlTable() {
    */
   const handleAddFormSubmit = async (event) => {
     event.preventDefault();
-    // if (!addFormData.coinId || !addFormData.quantity) {
-    //   return ;
-    // }
+
     console.log(addFormData)
     const newInput = {
       id: nanoid(), 
@@ -114,6 +113,7 @@ export default function PnlTable() {
           }
         }
       })
+      await refetchPnls();
     } catch (error){
       
     }
@@ -126,22 +126,31 @@ export default function PnlTable() {
    * Description: handles submission of editted entry existing in the pnl table
    * @param {*} event 
    */
-  const handleEditFormSubmit = (event) => {
+  const handleEditFormSubmit = async (event) => {
     event.preventDefault();
 
     const editedInput = {
       id: editInputId,
       coinId: editFormData.coinId,
-      quantity: editFormData.quantity,
+      quantity: Number(editFormData.quantity),
       boughtDate: editFormData.boughtDate,
-      boughtPrice: editFormData.boughtPrice,
-      currentPrice: editFormData.currentPrice,
-      netPos: editFormData.netPos
+      boughtPrice: Number(editFormData.boughtPrice),
+  
     };
 
     const newInputs = [...inputs];
 
-    const index = inputs.findIndex((input) => input.id === editInputId);
+    try {
+      const { data } = await editPnl({
+        variables: {
+          ...editedInput
+        }
+      })
+      await refetchPnls();
+    }catch(err){
+      console.error(err);
+    }
+    const index = inputs.findIndex((input) => input._id === editInputId);
 
     newInputs[index] = editedInput;
 
@@ -157,7 +166,8 @@ export default function PnlTable() {
    */
   const handleEditClick = (event, input) => {
     event.preventDefault();
-    setEditInputId(input.id);
+    
+    setEditInputId(input._id);
 
     const formValues = {
       coinId: input.coinId,
@@ -182,20 +192,34 @@ export default function PnlTable() {
    * Description: Removes a existing entry in the PNL table.
    * @param {*} inputId 
    */
-  const handleDeleteClick = (inputId) => {
+  const handleDeleteClick = async (pnlId) => {
     const newInputs = [...inputs];
+    try {
+      const { data } = await dropPnl({
+        variables: { 
+          // data: {
+            pnlId : pnlId,
+          // }
+         },
+      });
+      await refetchPnls();
+    } catch (err) {
+      console.error(err);
+    }
 
-    const index = inputs.findIndex((input) => input.id === inputId);
+    const index = inputs.findIndex((input) => input._id === pnlId);
 
     newInputs.splice(index, 1);
 
     setInputs(newInputs);
+
+
   };
 
   const isFormValid = () => {
     return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
   }
-  console.log("pnl = ", pnlDb);
+  // console.log("pnl = ", pnlDb);
   return (
     <div>
       <ContainerStyles>
@@ -216,7 +240,7 @@ export default function PnlTable() {
             <tbody>
             {pnlDb?.map((input) => (
               <Fragment>
-                {editInputId === input.id ? (
+                {editInputId === input._id ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}

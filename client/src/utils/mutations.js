@@ -33,8 +33,8 @@ export const ADD_PNL = gql`
 `;
 
 export const EDIT_PNL = gql`
-  mutation editPnl($coinId: String, $quantity: Number, $boughtDate: Number, $boughtPrice: Number) {
-    addPnl(coinId: $coinId, quantity: $quantity, boughtDate: $boughtDate, boughtPrice: $boughtPrice) {
+  mutation editPnl($id: ID, $coinId: String, $quantity: Float, $boughtDate: Date, $boughtPrice: Float) {
+    editPnl(id: $id, coinId: $coinId, quantity: $quantity, boughtDate: $boughtDate, boughtPrice: $boughtPrice) {
       _id
       coinId
       quantity
@@ -45,8 +45,8 @@ export const EDIT_PNL = gql`
 `;
 
 export const DROP_PNL = gql`
-  mutation dropPnl($id: ID!) {
-    dropPnl(_id: $id) {
+  mutation dropPnl($pnlId: ID!) {
+    dropPnl(pnlId: $pnlId) {
       _id
       coinId
       quantity

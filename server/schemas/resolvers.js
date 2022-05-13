@@ -42,7 +42,8 @@ const resolvers = {
             return pnl
         },
         dropPnl: async (parent, { pnlId }) => {
-            return Pnl.findByIdAndDelete({ _id: pnlId});
+            
+            return Pnl.findByIdAndRemove({ _id: pnlId});
         }
     }
 }

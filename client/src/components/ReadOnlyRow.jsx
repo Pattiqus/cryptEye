@@ -48,7 +48,7 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
         </button>
         </td>
         <td>
-        <button type="button" onClick={() => handleDeleteClick(input.id)}>
+        <button type="button" onClick={() => handleDeleteClick(input._id)}>
           Delete
         </button>
       </td>
