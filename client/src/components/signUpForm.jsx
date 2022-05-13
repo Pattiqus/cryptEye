@@ -7,11 +7,6 @@ import styled from 'styled-components';
 
 
 const FormStyles = styled.div`
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  margin-top: 400px;
-}
 h2 {
   font-size: 4rem;
 }
@@ -43,6 +38,7 @@ width: 50%;
     color: red;
   }
   button[type='submit'] {
+    margin-top: 20px;
     background-color: var(--black);
     color: var(--gold-1);
     border-color: var(--gold-1);
@@ -60,10 +56,7 @@ width: 50%;
   }
 `
 
-const Container = styled.div`
-    justify-content: center;
-    margin-top: 300px;
-`
+
 
 const SignUpForm = () => {
   const [formState, setFormState] = useState({
@@ -101,10 +94,11 @@ const SignUpForm = () => {
   };
 
   return (
-    <Container>
+    <FormStyles>
     <div className='formContainer'>
-        <FormStyles onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <h2>Join the movement</h2>
+          <label>Username</label>
                 <input
                   className="form-input"
                   placeholder="Your username"
@@ -113,6 +107,7 @@ const SignUpForm = () => {
                   value={formState.name}
                   onChange={handleChange}
                 />
+                <label>Email</label>
                 <input
                   className="form-input"
                   placeholder="Your email"
@@ -121,6 +116,7 @@ const SignUpForm = () => {
                   value={formState.email}
                   onChange={handleChange}
                 />
+                <label>Password</label>
                 <input
                   className="form-input"
                   placeholder="******"
@@ -136,7 +132,7 @@ const SignUpForm = () => {
                 >
                   Submit
                 </button>
-              </FormStyles>
+              </form>
 
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
@@ -144,7 +140,7 @@ const SignUpForm = () => {
               </div>
             )}
     </div>
-    </Container>
+    </FormStyles>
   );
 };
 

@@ -1,5 +1,31 @@
 import React, { useEffect, useState } from "react";
 import {getCurrentPrice} from '../utils/api';
+import styled from "styled-components";
+
+const ButtonStyles = styled.div`
+  .editButton {
+    color: silver;
+    background-color: black;
+    border-radius: 2px;
+    font-weight: bolder;
+    font-size: 20px;
+    &&:hover {
+      background-color: green;
+      cursor: pointer;
+    }
+  }
+  .deleteButton {
+    color: silver;
+    background-color: black;
+    border-radius: 2px;
+    font-weight: bolder;
+    font-size: 20px;
+    &&:hover {
+      background-color: red;
+      cursor: pointer;
+    }
+  }
+`
 
 const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
   const [currentPrice, setCurrentPrice] = useState(0);
@@ -40,17 +66,22 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
       <td>{currentPrice.toFixed(2)}</td>
       <td>{currentPos.toFixed(2)}</td>
       <td>
+        <ButtonStyles>
         <button
           type="button"
+          className="editButton"
           onClick={(event) => handleEditClick(event, input)}
         >
           Edit
         </button>
+        </ButtonStyles>
         </td>
         <td>
-        <button type="button" onClick={() => handleDeleteClick(input._id)}>
+          <ButtonStyles>
+        <button type="button" className="deleteButton" onClick={() => handleDeleteClick(input._id)}>
           Delete
         </button>
+        </ButtonStyles>
       </td>
     </tr>
   );

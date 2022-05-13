@@ -6,7 +6,7 @@ import styled from "styled-components";
 const LogoStyles = styled.div`
     .icon {
         color: var(--gold-1);
-        margin-top: 200px;
+        margin-top: 150px;
         font-size: 30rem;
     }
 `

@@ -1,4 +1,47 @@
 import React from "react";
+import styled from "styled-components";
+
+const ButtonStyles = styled.div`
+  .saveButton {
+    color: silver;
+    font-size: 20px;
+    background-color: black;
+    border-radius: 2px;
+    font-weight: bolder;
+    &&:hover {
+      background-color: silver;
+      cursor: pointer;
+    }
+  }
+  .cancelButton {
+    color: silver;
+    font-size: 20px;
+    background-color: black;
+    border-radius: 2px;
+    font-weight: bolder;
+    &&:hover {
+      background-color: var(--gold-1);
+      cursor: pointer;
+    }
+  }
+`
+
+const InputStyles = styled.div`
+  input[type=text] {
+    color: green;
+    font-size: 20px;
+    background-color: black;
+  }
+  input[type=date] {
+    color: green;
+    font-size: 20px;
+    background-color: var(--deep-dark);
+    
+  }
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+`
 
 const EditableRow = ({
   editFormData,
@@ -9,6 +52,7 @@ const EditableRow = ({
   return (
     <tr>
       <td>
+      <InputStyles>
         <input
           type="text"
           required="required"
@@ -17,8 +61,10 @@ const EditableRow = ({
           value={editFormData.coinId}
           onChange={handleEditFormChange}
         ></input>
+      </InputStyles>
       </td>
       <td>
+        <InputStyles>
         <input
           type="text"
           required="required"
@@ -27,8 +73,10 @@ const EditableRow = ({
           value={editFormData.quantity}
           onChange={handleEditFormChange}
         ></input>
+        </InputStyles>
       </td>
       <td>
+      <InputStyles>
         <input
           type="date"
           required="required"
@@ -37,8 +85,10 @@ const EditableRow = ({
           value={editFormData.boughtDate}
           onChange={handleEditFormChange}
         ></input>
+      </InputStyles>
       </td>
       <td>
+      <InputStyles>
         <input
           type="text"
           required="required"
@@ -47,16 +97,22 @@ const EditableRow = ({
           value={editFormData.boughtPrice}
           onChange={handleEditFormChange}
         ></input>
+        </InputStyles>
       </td>
       <td ></td>
       <td ></td>
+      
       <td>
-        <button type="submit" onClick={handleEditFormSubmit}>Save</button>
+        <ButtonStyles>
+        <button type="submit" className="saveButton" onClick={handleEditFormSubmit}>Save</button>
+        </ButtonStyles>
       </td>
       <td>
-        <button type="button" onClick={handleCancelClick}>
+      <ButtonStyles>
+        <button type="button" className="cancelButton"onClick={handleCancelClick}>
           Cancel
         </button>
+        </ButtonStyles>
       </td>
     </tr>
   );

@@ -7,20 +7,17 @@ const ContainerStyles = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 100px;
   }
   table {
-    /* border:  1px solid yellow; */
-    width: 997.99px;
-    /* border-color: var(--gold-1);
-    /* border-collapse: collapse; */
-    /* border-radius: 5px 5px 0px 0px; */
+    width: 1200px;
   }
   tr {
     border:  1px solid;
     border-color: var(--gold-1);
   }
   th {
-    font-size: 15px;
+    font-size: 2rem;
     display: table-cell;
     border:  3px solid;
     border-color: var(--gold-1);
@@ -38,14 +35,17 @@ const ContainerStyles = styled.div`
     border-right: solid;
     border-color: var(--gold-1);
     border:  1px solid;
+    font-size: 2rem;
+    border-radius: 5px;
   }
   .addCoinButton {
     font-family: 'RobotoMono Regular';
+    font-weight: bolder;
     padding: 1rem 2rem;
     font-size: 2rem;
     color: var(--gold-2);
     outline: none;
-    background-color: black;
+    background-color: var(--deep-dark);
     border-radius: 10px;
     &:hover {
       cursor: pointer;
@@ -53,6 +53,7 @@ const ContainerStyles = styled.div`
       color: black;
     }
   }
+
 `;
 
 export { ContainerStyles }
