@@ -37,12 +37,12 @@ const resolvers = {
             const pnl = await Pnl.create({ ...args.data, user: context.user._id });
             return pnl
         },
-        editPnl: async (parent, args) => {
+        editPnl: async (parent, args, context) => {
             const pnl = await Pnl.findOneAndUpdate({ ...args });
             return pnl
         },
         dropPnl: async (parent, { pnlId }) => {
-            
+
             return Pnl.findByIdAndRemove({ _id: pnlId});
         }
     }
