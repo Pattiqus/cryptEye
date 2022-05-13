@@ -25,7 +25,7 @@ const HeroStyles = styled.div`
         }
         .hero__name {
             font-size: 7rem;
-            font-family: 'Montserrat-Bold';
+            font-family: 'RobotoMono-Regular';
             color: var(--gold-1); 
         }
     }

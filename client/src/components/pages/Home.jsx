@@ -1,12 +1,19 @@
 import React from 'react'
-import NavLayout from '../layouts/NavLayout'
+import styled from 'styled-components'
 import LoginForm from '../LoginForm'
+
+const HomepageStyles = styled.div`
+  justify-content: center;
+  display: flex;
+  align-items: center;
+`
 
 export default function Home() {
   return (
     <div>
-        <NavLayout/>
+      <HomepageStyles>
         <LoginForm/>
+      </HomepageStyles>
     </div>
   )
 }

@@ -9,9 +9,10 @@ const FormStyles = styled.div`
 .formContainer {
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 400px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 h2 {
   font-size: 4rem;
@@ -117,7 +118,7 @@ return (
                   <input
                       type="password"
                       name="password"
-                      placeholder="Your password should be longer than 5 characters"
+                      placeholder="Enter password"
                       value={formState.password}
                       onChange={handleChange}
                       required />

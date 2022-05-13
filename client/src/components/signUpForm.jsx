@@ -10,8 +10,6 @@ const FormStyles = styled.div`
 .formContainer {
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 400px;
 }
 h2 {
@@ -106,6 +104,7 @@ const SignUpForm = () => {
     <Container>
     <div className='formContainer'>
         <FormStyles onSubmit={handleFormSubmit}>
+          <h2>Join the movement</h2>
                 <input
                   className="form-input"
                   placeholder="Your username"

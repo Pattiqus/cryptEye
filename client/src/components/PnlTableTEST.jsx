@@ -174,8 +174,6 @@ export default function PnlTable() {
       quantity: input.quantity,
       boughtDate: input.boughtDate,
       boughtPrice: input.boughtPrice,
-      currentPrice: input.currentPrice,
-      netPos: input.netPos
     };    setEditFormData(formValues);
   };
 
@@ -227,7 +225,7 @@ export default function PnlTable() {
         <table>
             <thead>
               <tr className='tableTitles'>
-                  <th className='currancyHead'>Currancy</th>
+                  <th className='currancyHead'>Currency</th>
                   <th>Quantity</th>
                   <th>Bought On</th>
                   <th>Bought for</th>

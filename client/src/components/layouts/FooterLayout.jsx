@@ -8,7 +8,7 @@ const FooterStyles = styled.div`
     display: flex;
     flex-direction: column;
     bottom: 0;
-    /* position: fixed; */
+    position: fixed;
     justify-content: center;
     width: 100%;
     background: var(--dark-bg);
