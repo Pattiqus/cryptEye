@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 
 const HeroStyles = styled.div`
     .hero {
-        margin-top: 100px;
+        margin-top: 70px;
         height: 20vh;
         width: 100%;
         text-align: center;

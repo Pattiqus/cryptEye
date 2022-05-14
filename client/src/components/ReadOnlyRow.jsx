@@ -14,7 +14,7 @@ const ButtonStyles = styled.div`
       cursor: pointer;
     }
   }
-  .deleteButton {
+  button.deleteButton {
     color: silver;
     background-color: black;
     border-radius: 2px;
@@ -62,9 +62,11 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
       <td>{input.coinId}</td>
       <td>{input.quantity}</td>
       <td>{input.boughtDate.toString().slice(0, 10)}</td>
-      <td>{input.boughtPrice}</td>
-      <td>{currentPrice.toFixed(2)}</td>
-      <td>{currentPos.toFixed(2)}</td>
+      <td>$ {input.boughtPrice} AUD</td>
+      <td>$ {currentPrice.toFixed(2)} AUD</td>
+      <td style={{color: currentPos < 0 ? "red" : "green"}}>
+        $ {currentPos.toFixed(2)} AUD
+        </td>
       <td>
         <ButtonStyles>
         <button
