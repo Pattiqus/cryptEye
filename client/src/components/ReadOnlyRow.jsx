@@ -25,6 +25,9 @@ const ButtonStyles = styled.div`
       cursor: pointer;
     }
   }
+  td {
+    border: 20px 0px 0px 0px
+  }
 `
 
 const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {

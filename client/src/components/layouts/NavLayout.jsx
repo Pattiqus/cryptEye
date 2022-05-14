@@ -117,15 +117,6 @@ export default function NavLayout() {
             show: false,
             
         },
-        // {
-        //     title: 'Log out',
-        //     link: '/',
-        //     show: false,
-        //     onClick: ((e) => {
-        //         logout(e);
-        //         console.log("logging out");
-        //     })
-        // }
     ];
 
     const [showNav, SetShowNav] = useState(false);
