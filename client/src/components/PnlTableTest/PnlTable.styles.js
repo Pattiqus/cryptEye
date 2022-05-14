@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 const ContainerStyles = styled.div`
+  * {
+    color: var(--gold-1);
+  }
   .tableContainer {
   justify-content: center;
   text-align: center;
@@ -86,7 +89,13 @@ const ContainerStyles = styled.div`
     }
   }
   .cancelAddButton {
-    
+    background-color: var(--deep-dark);
+    border: none;
+    font-size: 2rem;
+
+  }
+  .cancelAddButtonWrapper {
+    background-color: var(--deep-dark);
   }
 `;
 

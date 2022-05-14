@@ -303,7 +303,7 @@ export default function PnlTable() {
                     {addFormData && addFormData.netPos}
                   </td>
                   <td></td>
-                  <td>
+                  <td className='cancelAddButtonWrapper'>
                     <button className="cancelAddButton"onClick={() => setShowInput(false)}>❌</button>
                   </td>
               </tr>

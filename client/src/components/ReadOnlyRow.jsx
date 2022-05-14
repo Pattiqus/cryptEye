@@ -61,7 +61,7 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
     <tr>
       <td>{input.coinId}</td>
       <td>{input.quantity}</td>
-      <td>{input.boughtDate}</td>
+      <td>{input.boughtDate.toString().slice(0, 10)}</td>
       <td>{input.boughtPrice}</td>
       <td>{currentPrice.toFixed(2)}</td>
       <td>{currentPos.toFixed(2)}</td>
