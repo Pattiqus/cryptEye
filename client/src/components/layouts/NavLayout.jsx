@@ -14,9 +14,9 @@ const NavBarStyle = styled.nav`
     background: var(--dark-bg);
     ul {
         max-width: 1200px;
-        margin: 0 auto;
         width: 90%;
         text-align: right;
+        justify-content: right;
         li{
             display: inline-block;
             border-radius: 8px;
@@ -55,7 +55,13 @@ const NavBarStyle = styled.nav`
     .navItems .closeNavIcon {
         display: none;
     }
-
+    .navContainer {
+        display: flex;
+        min-width: 100vw;
+    }
+    h1 {
+            font-size: 5rem;
+        }
     @media only screen and (max-width: 768px) {
         padding: 0;
         .hide-item {
@@ -89,7 +95,6 @@ const NavBarStyle = styled.nav`
                 margin-bottom: 1rem;
             }
         }
-
     }
 `;
 export default function NavLayout() {
@@ -123,8 +128,9 @@ export default function NavLayout() {
 
     return (
 
-    <div>
-        <NavBarStyle>
+    <NavBarStyle>
+    <div className='navContainer'>
+        <h1>Crypt Eye</h1>   
         <div 
             className='mobile-menu-icon'
             onClick={() => SetShowNav(!showNav)}
@@ -170,7 +176,7 @@ export default function NavLayout() {
             </li>
 
         </ul>
-        </NavBarStyle>
     </div>
+    </NavBarStyle>
   )
 }
