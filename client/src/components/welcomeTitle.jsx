@@ -4,14 +4,13 @@ import Auth from '../utils/auth';
 
 const HeroStyles = styled.div`
     .hero {
+        margin-top: 100px;
         height: 20vh;
-        /* min-height: 1000px; */
         width: 100%;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* position: relative; */
     }
     .hero__heading {
         font-size: 2rem;
@@ -36,9 +35,6 @@ const HeroStyles = styled.div`
         margin: 0 auto;
         border: 2px solid var(--gold-2);
     }
-    .hero__info {
-        margin-top: -18rem;
-    }
 `;
 
 export default function WelcomeTitle() {
@@ -50,9 +46,6 @@ export default function WelcomeTitle() {
                     <span>Welcome</span>
                     <span className='hero__name'>{Auth.getProfile().data.username}</span>
                 </h1>
-                {/* <div className="hero__image">
-                    <img src={HeroImage} alt='me-chinatown'/>
-                </div> */}
             </div>
         </div>
     </HeroStyles>

@@ -30,17 +30,20 @@ const InputStyles = styled.div`
   input[type=text] {
     color: green;
     font-size: 20px;
-    background-color: black;
   }
   input[type=date] {
     color: green;
     font-size: 20px;
     background-color: var(--deep-dark);
+    border: none;
     
   }
   ::-webkit-calendar-picker-indicator {
     filter: invert(1);
-}
+  }
+  .editBoughtDate {
+    background-color: var(--deep-dark);
+  }
 `
 
 const EditableRow = ({
@@ -75,7 +78,7 @@ const EditableRow = ({
         ></input>
         </InputStyles>
       </td>
-      <td>
+      <td className="editBoughtDate">
       <InputStyles>
         <input
           type="date"

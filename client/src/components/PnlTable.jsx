@@ -4,28 +4,36 @@ import EditableRow from './EditableRow';
 import ReadOnlyRow from './ReadOnlyRow';
 import { getCurrentPrice } from '../utils/api';
 import { ContainerStyles } from './PnlTableTest/PnlTable.styles';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { ADD_PNL, EDIT_PNL, DROP_PNL } from '../utils/mutations';
+import { QUERY_PNLS } from '../utils/queries';
 
 
 const formDefaults = {
   coinId: "",
   quantity: "",
-  boughtDate: "",
+  boughtDate: new Date(),
   boughtPrice: "",
-  currentPrice: null,
-  netPos: null
 };
 
 export default function PnlTable() {
   const [showInput, setShowInput] = useState(false);
+  const { loading, data, refetch: refetchPnls } = useQuery(QUERY_PNLS);
+  const pnlDb = data?.pnls
+  
+
 
   const [inputs, setInputs] = useState([]);
   const [addFormData, setAddFormData] = useState(formDefaults);
+  const [addPnl, { error: adderror }] = useMutation(ADD_PNL);
+  
 
   const [editFormData, setEditFormData] = useState();
+  const [editPnl, {error: editerror}] = useMutation(EDIT_PNL);
 
   const [editInputId, setEditInputId] = useState(null);
+
+  const [dropPnl, { error: droperror }] = useMutation(DROP_PNL);
 
   /**
    * Function: handleAddFormChange
@@ -44,10 +52,10 @@ export default function PnlTable() {
     if (fieldName === 'coinId' && fieldValue.length >= 3) { 
       newFormData.currentPrice = await getCurrentPrice(fieldValue);
       if (newFormData.boughtPrice.length) {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
       }
     } else if (fieldName === 'boughtPrice') {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
     }
 
     setAddFormData(newFormData);
@@ -85,18 +93,30 @@ export default function PnlTable() {
    * @param {*} event 
    * @returns 
    */
-  const handleAddFormSubmit = (event) => {
+  const handleAddFormSubmit = async (event) => {
     event.preventDefault();
-    if (!addFormData.coinId || !addFormData.quantity) {
-      return ;
-    }
+
     console.log(addFormData)
     const newInput = {
       id: nanoid(), 
       ...addFormData
     };
     const newInputs = [...inputs, newInput];
-
+    try {
+      const { data } = await addPnl({
+        variables: {
+          data : {
+            coinId: addFormData.coinId,
+            boughtDate: addFormData.boughtDate,
+            quantity: Number(addFormData.quantity),
+            boughtPrice: Number(addFormData.boughtPrice),
+          }
+        }
+      })
+      await refetchPnls();
+    } catch (error){
+      
+    }
     setInputs(newInputs);
     setAddFormData(formDefaults);
   };
@@ -106,22 +126,31 @@ export default function PnlTable() {
    * Description: handles submission of editted entry existing in the pnl table
    * @param {*} event 
    */
-  const handleEditFormSubmit = (event) => {
+  const handleEditFormSubmit = async (event) => {
     event.preventDefault();
 
     const editedInput = {
-      id: editInputId,
+      _id: editInputId,
       coinId: editFormData.coinId,
-      quantity: editFormData.quantity,
+      quantity: Number(editFormData.quantity),
       boughtDate: editFormData.boughtDate,
-      boughtPrice: editFormData.boughtPrice,
-      currentPrice: editFormData.currentPrice,
-      netPos: editFormData.netPos
+      boughtPrice: Number(editFormData.boughtPrice),
+  
     };
 
     const newInputs = [...inputs];
 
-    const index = inputs.findIndex((input) => input.id === editInputId);
+    try {
+      const { data } = await editPnl({
+        variables: {
+          ...editedInput
+        }
+      })
+      await refetchPnls();
+    }catch(err){
+      console.error(err);
+    }
+    const index = inputs.findIndex((input) => input._id === editInputId);
 
     newInputs[index] = editedInput;
 
@@ -137,15 +166,14 @@ export default function PnlTable() {
    */
   const handleEditClick = (event, input) => {
     event.preventDefault();
-    setEditInputId(input.id);
+    
+    setEditInputId(input._id);
 
     const formValues = {
       coinId: input.coinId,
       quantity: input.quantity,
       boughtDate: input.boughtDate,
       boughtPrice: input.boughtPrice,
-      currentPrice: input.currentPrice,
-      netPos: input.netPos
     };    setEditFormData(formValues);
   };
 
@@ -162,20 +190,33 @@ export default function PnlTable() {
    * Description: Removes a existing entry in the PNL table.
    * @param {*} inputId 
    */
-  const handleDeleteClick = (inputId) => {
+  const handleDeleteClick = async (pnlId) => {
     const newInputs = [...inputs];
+    try {
+      const { data } = await dropPnl({
+        variables: { 
+          // data: {
+            pnlId : pnlId,
+          // }
+         },
+      });
+      await refetchPnls();
+    } catch (err) {
+      console.error(err);
+    }
 
-    const index = inputs.findIndex((input) => input.id === inputId);
+    const index = inputs.findIndex((input) => input._id === pnlId);
 
     newInputs.splice(index, 1);
 
     setInputs(newInputs);
+
+
   };
 
   const isFormValid = () => {
     return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
   }
-
   return (
     <div>
       <ContainerStyles>
@@ -183,7 +224,7 @@ export default function PnlTable() {
         <table>
             <thead>
               <tr className='tableTitles'>
-                  <th className='currancyHead'>Currancy</th>
+                  <th className='currancyHead'>Currency</th>
                   <th>Quantity</th>
                   <th>Bought On</th>
                   <th>Bought for</th>
@@ -194,9 +235,9 @@ export default function PnlTable() {
               </tr>
             </thead>
             <tbody>
-            {inputs && inputs.length > 0 && inputs.map((input) => (
+            {pnlDb?.map((input) => (
               <Fragment>
-                {editInputId === input.id ? (
+                {editInputId === input._id ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
@@ -214,7 +255,6 @@ export default function PnlTable() {
               </Fragment>
             ))}
           </tbody>
-            { /* map through existing coins */}
             <tfoot>
             { showInput && (
               <tr>
@@ -238,8 +278,8 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='boughtDate'>
-                    <input type="text"
+                  <td className='addBoughtDate'>
+                    <input type="date"
                     required="required"
                     placeholder="Date Bought"
                     name="boughtDate"
@@ -247,7 +287,7 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='boughtPrice'>
+                  <td className='addBoughtPrice'>
                     <input type="text"
                     required="required"
                     placeholder="AUD"
@@ -256,21 +296,21 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='currentPrice'>
+                  <td className='addCurrentPrice'>
                     {addFormData && addFormData.currentPrice}
                   </td>
-                  <td className='netPos'>
+                  <td className='addNetPos'>
                     {addFormData && addFormData.netPos}
                   </td>
                   <td></td>
                   <td>
-                    <button onClick={() => setShowInput(false)}>❌</button>
+                    <button className="cancelAddButton"onClick={() => setShowInput(false)}>❌</button>
                   </td>
               </tr>
             )}
             </tfoot>
         </table>
-        {showInput && <button disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
+        {showInput && <button className='saveCoinButton' disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
       </div>
       </ContainerStyles>

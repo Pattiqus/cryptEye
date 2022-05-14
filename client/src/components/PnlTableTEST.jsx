@@ -217,7 +217,6 @@ export default function PnlTable() {
   const isFormValid = () => {
     return addFormData.coinId && addFormData.quantity && addFormData.boughtPrice;
   }
-  // console.log("pnl = ", pnlDb);
   return (
     <div>
       <ContainerStyles>
@@ -256,7 +255,6 @@ export default function PnlTable() {
               </Fragment>
             ))}
           </tbody>
-            { /* map through existing coins */}
             <tfoot>
             { showInput && (
               <tr>
@@ -280,7 +278,7 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='boughtDate'>
+                  <td className='addBoughtDate'>
                     <input type="date"
                     required="required"
                     placeholder="Date Bought"
@@ -289,7 +287,7 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='boughtPrice'>
+                  <td className='addBoughtPrice'>
                     <input type="text"
                     required="required"
                     placeholder="AUD"
@@ -298,21 +296,21 @@ export default function PnlTable() {
                     onChange={handleAddFormChange}>
                     </input>
                   </td>
-                  <td className='currentPrice'>
+                  <td className='addCurrentPrice'>
                     {addFormData && addFormData.currentPrice}
                   </td>
-                  <td className='netPos'>
+                  <td className='addNetPos'>
                     {addFormData && addFormData.netPos}
                   </td>
                   <td></td>
                   <td>
-                    <button onClick={() => setShowInput(false)}>❌</button>
+                    <button className="cancelAddButton"onClick={() => setShowInput(false)}>❌</button>
                   </td>
               </tr>
             )}
             </tfoot>
         </table>
-        {showInput && <button disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
+        {showInput && <button className='saveCoinButton' disabled={!isFormValid()} onClick={handleAddFormSubmit} >Save coin</button>}
         {!showInput && <button className='addCoinButton' onClick={() => setShowInput(true)}>Add coin</button>}
       </div>
       </ContainerStyles>

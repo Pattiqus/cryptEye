@@ -53,7 +53,41 @@ const ContainerStyles = styled.div`
       color: black;
     }
   }
-
+  input[type=text] {
+    color: green;
+    font-size: 20px;
+    background-color: var(--deep-dark);
+  }
+  input[type=date] {
+    color: green;
+    font-size: 20px;
+    background-color: var(--deep-dark);
+    
+  }
+  .addQuantity {
+    background-color: var(--deep-dark);
+  }
+  .addBoughtDate {
+    background-color: var(--deep-dark);
+  }
+  .saveCoinButton {
+    font-family: 'RobotoMono Regular';
+    font-weight: bolder;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    color: var(--gold-2);
+    outline: none;
+    background-color: var(--deep-dark);
+    border-radius: 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--gold-1);
+      color: black;
+    }
+  }
+  .cancelAddButton {
+    
+  }
 `;
 
 export { ContainerStyles }
