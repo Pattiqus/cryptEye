@@ -1,6 +1,6 @@
 import React from 'react'
-import Chart from '../Chart.jsx'
-import PnlTableTEST from '../PnlTableTEST.jsx'
+import Chart from '../Chart'
+import PnlTableTEST from '../PnlTableTEST'
 import WelcomeTitle from '../welcomeTitle'
 
 import {QueryClientProvider, QueryClient } from 'react-query';
