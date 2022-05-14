@@ -38,7 +38,8 @@ const resolvers = {
             return pnl
         },
         editPnl: async (parent, args, context) => {
-            const pnl = await Pnl.findOneAndUpdate({ ...args });
+            const pnl = await Pnl.findOneAndUpdate({_id: args._id} , {...args}, {returnOriginal: false});
+            console.log(args);
             return pnl
         },
         dropPnl: async (parent, { pnlId }) => {

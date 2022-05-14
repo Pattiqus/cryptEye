@@ -50,7 +50,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         addPnl(data: PostPnl): User
-        editPnl(id: ID!, coinId: String, quantity: Float, boughtDate: Date, boughtPrice:Float): Pnl
+        editPnl(_id: ID!, coinId: String, quantity: Float, boughtDate: Date, boughtPrice:Float): Pnl
         dropPnl(pnlId: ID!): Pnl
     }
     

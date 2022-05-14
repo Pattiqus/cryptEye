@@ -130,7 +130,7 @@ export default function PnlTable() {
     event.preventDefault();
 
     const editedInput = {
-      id: editInputId,
+      _id: editInputId,
       coinId: editFormData.coinId,
       quantity: Number(editFormData.quantity),
       boughtDate: editFormData.boughtDate,
