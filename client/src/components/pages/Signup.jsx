@@ -1,5 +1,5 @@
 import React from 'react'
-import SignUpForm from '../SignUpForm'
+import SignUpForm from '../SignUpForm.jsx'
 import styled from 'styled-components'
 import Logo from '../Logo'
 
