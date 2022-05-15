@@ -1,5 +1,5 @@
 const getCurrentPrice = async (coinId) => {
-    const apiEndpoint = `http://localhost:3001/api/prices?coinId=${coinId}`;
+    const apiEndpoint = `/api/prices?coinId=${coinId}`;
 
     try {    
       const response = await fetch(apiEndpoint);
