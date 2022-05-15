@@ -67,8 +67,7 @@ This entry will now appear in the table and automatically call the current price
 
 <p>Demonstration</p>
 
-![Book Search](./assets/img/booksearch.gif)
-
+![Dashboard](./assets/Images/dashboard.gif)
 
 
 # License
@@ -81,7 +80,7 @@ Contributors:
 Pat Brown (Pattiqus)
 ```
 # Tests
-This application was not developed using a Test driven environment.
+All testing conducted through the JEST NPM.
 # Questions
 If you have any qestions regrading the repository or the project please contact: 
 <ul>

@@ -52,10 +52,10 @@ export default function PnlTable() {
     if (fieldName === 'coinId' && fieldValue.length >= 3) { 
       newFormData.currentPrice = await getCurrentPrice(fieldValue);
       if (newFormData.boughtPrice.length) {
-        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
+        newFormData.netPos = (newFormData.currentPrice * newFormData.quantity) - (newFormData.boughtPrice * newFormData.quantity);
       }
     } else if (fieldName === 'boughtPrice') {
-        newFormData.netPos = (newFormData.currentPrice / newFormData.boughtPrice) * 100;
+        newFormData.netPos = (newFormData.currentPrice * newFormData.quantity) - (newFormData.boughtPrice * newFormData.quantity);
     }
 
     setAddFormData(newFormData);
@@ -78,10 +78,10 @@ export default function PnlTable() {
     if (fieldName === 'coinId' && fieldValue.length >= 3) { 
       newFormData.currentPrice = await getCurrentPrice(fieldValue);
       if (newFormData.boughtPrice.length) {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice * newFormData.quantity) - (newFormData.boughtPrice * newFormData.quantity);
       }
     } else if (fieldName === 'boughtPrice') {
-        newFormData.netPos = (newFormData.currentPrice - newFormData.boughtPrice) / 100;
+        newFormData.netPos = (newFormData.currentPrice * newFormData.quantity) - (newFormData.boughtPrice * newFormData.quantity);
     }
 
     setEditFormData(newFormData);

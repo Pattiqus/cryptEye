@@ -55,7 +55,7 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
   }, [currentPrice])
 
   const updatePos = async () => {
-    const cPos = (currentPrice - input.boughtPrice)/100;
+    const cPos = (currentPrice * input.quantity) - (input.boughtPrice * input.quantity);
     setCurrentPos(cPos);
   }
   console.log("VALUE"  + currentPrice);
