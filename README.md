@@ -58,12 +58,12 @@ This entry will now appear in the table and automatically call the current price
 
 # Screenshots
 <p>Home/Login Page</p>
-![]
 
+![Home Page](./assets/Images/home.PNG)
 
 <p>Signup Page</p>\
 
-
+![SignUp Page](./assets/Images/signup.PNG)
 
 <p>Demonstration</p>
 
