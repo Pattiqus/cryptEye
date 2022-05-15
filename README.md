@@ -5,15 +5,22 @@ Crypt Eye, Your very own personal crypto currancy journal.
 
 Patch 1.0 Features:
 
-- TradingView 
-Keep your investment information safe and visable with our Dynamic PNL chart
+- TradingView Powered Chart Widget
+    Stay on top of your favourite crypto currancie's positions with the TradingView powered widget in your dashboard. 
+    Currently supports viewing against TetherUS for BTC, ETH, XRP, LUNA, USDC, SOL, ADA, AVAX, XLM and DOGE.
 
+- Dynamic PNL Chart
+    View your investment information without the need for your own calculations with our real-time Dynamic PNL tracking chart!
+    Powered by Coinspot API information, this chart records:
+    - Currency
+    - Quantity
+    - Bought date
+    - Bought price
+    It then aoutomatically loads the current price from coinspot, and calculates your PNL displaying in red for negative and green for posetive!
 
-Functionality includes: 
-- The ability to login / signup
-- Save / remove books to a personalized list
 
 The application was written using JavaScript and includes the following technologies: 
+- [React.js](https://reactjs.org/)
 - [Node.js](https://nodejs.org/en/) 
 - [apollo-server-express](https://www.npmjs.com/package/apollo-server-express)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
@@ -23,7 +30,6 @@ The application was written using JavaScript and includes the following technolo
 - [mongoose](https://www.npmjs.com/package/mongoose)
 - [concurrently](https://www.npmjs.com/package/concurrently)
 - [apollo-client](https://www.npmjs.com/package/@apollo/client)
-- [bootstrap](https://www.npmjs.com/package/bootstrap)
 # Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
@@ -34,16 +40,31 @@ The application was written using JavaScript and includes the following technolo
 # Installation
 The following dependencies are necessary to run this application: 
 
-- To run this application effectively, please have Node.js installed on your computer.
-- Clone the Repository onto your local machine using ```git clone git@github.com:Pattiqus/Book-Search-Engine-GraphQL.git```
-- Other required modules are bundled in the package.json file provided, by running```npm install`` from the CLI or Terminal inside the main, client & applications directory, these modules will be installed.
-- The application can the be run with ```npm run start```.
+- To use this application, simply click the below link
+- [Crypt Eye](https://crypt-eye.herokuapp.com/)
 
 
 # Usage
-Simply click the URL login and search for a book which you want to save to your favourites. It will identify if the book is already saved. You can visit your saved books by clicking the link in the top left of the nav bar. From there you can visit and remove from your collection of books
+To use this application you must create an account.
+This is easily done from the signup page.
+
+Once you are signed in, you will be directed to the dashboard.
+
+To use the Chart widget, simply click on any of the available coin names at the top of the widget, this will display that currencies history on the chart.
+
+To use the PNL chart enter the coins abreiviated name ```BTC, ETH, DOGE etc...``` , enter the quantity, bought date and bought price and save coin.
+
+This entry will now appear in the table and automatically call the current price in AUD as well as calculate your profit position!
 
 # Screenshots
+<p>Home/Login Page</p>
+![]
+
+
+<p>Signup Page</p>\
+
+
+
 <p>Demonstration</p>
 
 ![Book Search](./assets/img/booksearch.gif)
