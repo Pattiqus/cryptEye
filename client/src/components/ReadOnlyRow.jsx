@@ -58,7 +58,7 @@ const ReadOnlyRow = ({ input, handleEditClick, handleDeleteClick }) => {
     const cPos = (currentPrice - input.boughtPrice)/100;
     setCurrentPos(cPos);
   }
-
+  console.log("VALUE"  + currentPrice);
 
   return (
     <tr>
