@@ -44,6 +44,7 @@ const ContainerStyles = styled.div`
   .addCoinButton {
     font-family: 'RobotoMono Regular';
     font-weight: bolder;
+    margin-top: 25px;
     padding: 1rem 2rem;
     font-size: 2rem;
     color: var(--gold-2);
@@ -96,6 +97,17 @@ const ContainerStyles = styled.div`
   }
   .cancelAddButtonWrapper {
     background-color: var(--deep-dark);
+  }
+
+  @media only screen and (max-width: 1200px) {
+    table {
+    width: 768px;
+  }
+  }
+  @media only screen and (max-width: 768px) {
+    table {
+    width: auto;
+  }
   }
 `;
 

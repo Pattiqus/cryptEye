@@ -8,6 +8,7 @@ const HomepageStyles = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 100px
 `
 
 export default function Home() {

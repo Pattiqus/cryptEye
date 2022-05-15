@@ -76,7 +76,14 @@ export default function Chart() {
       text-align: center;
       display: flex;
       /* position: relative; */
+      margin-bottom: 50px;
+      margin-top: 50px;
     }
+
+      /* @media only screen and (max-width: 1200px) {
+      .widget {
+      width: 768px;
+    } */ 
   ` 
 
   return (
@@ -84,7 +91,7 @@ export default function Chart() {
     <div>
       <ChartStyles>
         <div className="tradingview-widget-container">
-            <div id="tradingview_dff99"></div>
+            <div className="widget" id="tradingview_dff99"></div>
         {/* {add html here} */}
         </div>
       </ChartStyles>

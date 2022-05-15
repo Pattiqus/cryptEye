@@ -61,7 +61,9 @@ const NavBarStyle = styled.nav`
     }
     h1 {
             font-size: 5rem;
-        }
+            white-space: nowrap;
+    }
+    @media only screen and (max-width: 1550px) {}
     @media only screen and (max-width: 768px) {
         padding: 0;
         .hide-item {
