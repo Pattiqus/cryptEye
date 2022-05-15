@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 // #GET Route for homepage
 app.use('/api', require('./api.routes'));
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
