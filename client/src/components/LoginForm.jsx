@@ -12,6 +12,7 @@ const FormStyles = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom: 100px;
 }
 h2 {
   font-size: 8rem;

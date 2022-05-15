@@ -10,6 +10,9 @@ const FormStyles = styled.div`
 h2 {
   font-size: 4rem;
 }
+.formContainer {
+  margin-bottom: 100px;
+}
 width: 50%;
   .form-group {
     width: 50%;

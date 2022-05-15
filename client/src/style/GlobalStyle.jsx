@@ -24,6 +24,8 @@ const GlobalStyles = createGlobalStyle`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    margin: 0;
+    height: 100%;
   }
   ul,li{
     list-style: none;

@@ -101,6 +101,10 @@ const ContainerStyles = styled.div`
 
   @media only screen and (max-width: 1200px) {
     table {
+    width: 1000px;
+  }
+  @media only screen and (max-width: 1000px) {
+    table {
     width: 768px;
   }
   }
